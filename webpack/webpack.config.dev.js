@@ -11,7 +11,7 @@ module.exports = merge(webpackCommon, {
         asyncChunks: true,
         publicPath: "/", // deploy on server with /app/ folder name
         filename: "[name].bundle.js",
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, '../dist'),
         clean: true,
     },
     optimization: {
@@ -20,7 +20,7 @@ module.exports = merge(webpackCommon, {
       // devtool: 'inline-source-map' find index bug
     devtool: "eval-cheap-module-source-map",
     devServer: {
-        static: path.resolve(__dirname, './dist'),
+        static: path.resolve(__dirname, '../dist'),
         server: {
             type: 'http',
         },

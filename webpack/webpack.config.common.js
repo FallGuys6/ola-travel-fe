@@ -25,14 +25,14 @@ function pathResolveResole(pathUrl) {
 
 module.exports = {
   entry: {
-    main: pathResolveJoin("/src/index.js"),
+    main: pathResolveResole("../src/index.js"),
   },
   resolve: {
     alias: {
-      src: pathResolveResole("./src"),
-      "@": pathResolveResole("./src"),
+      src: pathResolveResole("../src"),
+      "@": pathResolveResole("../src"),
     },
-    modules: [pathResolveResole("./src"), "node_modules"],
+    modules: [pathResolveResole("../src"), "node_modules"],
     byDependency: {
       less: {
         mainFiles: ["custom"],
@@ -238,7 +238,7 @@ module.exports = {
       chunkFilename: devMode ? "[id].css" : "[id].[hash:6].css",
     }),
     new HtmlWebpackPlugin({
-      template: pathResolveResole("./src/index.html"),
+      template: pathResolveResole("../src/index.html"),
       filename: "index.html",
       inject: "body",
       minify: devMode ? false : true,
