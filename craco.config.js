@@ -9,7 +9,9 @@ const WebpackBar = require("webpackbar");
 const { merge } = require("webpack-merge");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const env = process.env.NODE_ENV;
+const devMode = process.env.NODE_ENV !== "production";
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
 
 module.exports = {
@@ -36,6 +38,10 @@ module.exports = {
       new SimpleProgressWebpackPlugin({
         name: "webpack run build....",
       }),
+      new MiniCssExtractPlugin({
+        filename: devMode ? "[name].css" : "[name].[hash:6].css",
+        chunkFilename: devMode ? "[id].css" : "[id].[hash:6].css",
+      }),
       ...whenDev(
         () => [
           new webpack.HotModuleReplacementPlugin(),
@@ -46,10 +52,6 @@ module.exports = {
       ),
       ...whenProd(
         () => [
-          new MiniCssExtractPlugin({
-            filename: "[name].[hash:6].css" ,
-            chunkFilename: "[id].[hash:6].css",
-          }),
           new webpack.optimize.LimitChunkCountPlugin({
             maxChunks: 30,
           }),
@@ -63,6 +65,19 @@ module.exports = {
             hashDigestLength: 20,
           }),
           new webpack.optimize.ModuleConcatenationPlugin(),
+            new TerserPlugin({
+              test: /\.js(\?.*)?$/i,
+              parallel: true,
+              extractComments: 'all',
+              terserOptions: {
+                mangle: {
+                  keep_fnames: false
+                },
+                compress: {
+                  drop_console: true
+                }
+              }
+          }),
           new CompressionWebpackPlugin({
             algorithm: "gzip",
             test: new RegExp("\\.(" + ["js", "css"].join("|") + ")$"),
@@ -75,23 +90,29 @@ module.exports = {
     ],
     //Extract common module
     optimization: {
+      runtimeChunk: true,
       splitChunks: {
         cacheGroups: {
           commons: {
-            chunks: 'initial',
+            chunks: "all",
             minChunks: 2,
             maxInitialRequests: 5,
-            minSize: 0
+            minSize: 0,
           },
           vendor: {
             test: /node_modules/,
-            chunks: 'initial',
-            name: 'vendor',
+            chunks: "all",
+            name: "vendor",
             priority: 10,
-            enforce: true
-          }
-        }
-      }
+            enforce: true,
+          },
+          minSize: 30000,
+          maxAsyncRequests: 5
+        },
+      },
+      removeAvailableModules: true,
+      removeEmptyChunks: true,
+      mergeDuplicateChunks: true,
     },
   },
 
@@ -101,7 +122,7 @@ module.exports = {
       options: {
         lessLoaderOptions: {
           lessOptions: {
-            modifyVars: { "@primary-color": "#1DA57A" },
+            modifyVars: { "@primary-color": "#FF4D4F" },
             javascriptEnabled: true,
             paths: [path.resolve(__dirname, "node_modules")],
             plugins: [new CleanCSSPlugin({ advanced: true })],
@@ -113,4 +134,20 @@ module.exports = {
       },
     },
   ],
+  devServer: {
+    server: {
+      type: "http",
+    },
+    historyApiFallback: true,
+    compress: true,
+    allowedHosts: "auto",
+    port: 3003,
+    liveReload: true,
+    client: {
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
+  },
 };

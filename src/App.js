@@ -1,11 +1,12 @@
-import React from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
+import React, { useState } from 'react';
+import { Layout, Menu, Breadcrumb, Avatar } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
   FileOutlined,
   TeamOutlined,
   UserOutlined,
+  AntDesignOutlined
 } from "@ant-design/icons";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -48,7 +49,18 @@ const App = () => {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-              Bill is a cat.
+            <Avatar
+              src="/asset/images/linh.jpg"
+              size={{
+                xs: 24,
+                sm: 32,
+                md: 40,
+                lg: 64,
+                xl: 80,
+                xxl: 100,
+              }}
+              icon={<AntDesignOutlined />}
+            />
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
