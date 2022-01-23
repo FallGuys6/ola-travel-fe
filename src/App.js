@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Menu, Breadcrumb, Avatar } from "antd";
+import { Layout, Menu, Breadcrumb, Avatar, Image, Button } from "antd";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -13,6 +13,7 @@ const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 const App = () => {
+  const [visible, setVisible] = useState(false);
   return(
     <>
     {/* collapsed={collapsed} */}
@@ -49,21 +50,24 @@ const App = () => {
               <Breadcrumb.Item>Bill</Breadcrumb.Item>
             </Breadcrumb>
             <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-            <Avatar
-              src="/asset/images/linh.jpg"
-              size={{
-                xs: 24,
-                sm: 32,
-                md: 40,
-                lg: 64,
-                xl: 80,
-                xxl: 100,
+            <Button type="primary" onClick={() => setVisible(true)}>
+              show image preview
+            </Button>
+            <Image
+              width={200}
+              style={{ display: 'none' }}
+              src="asset/images/linh.jpg"
+              preview={{
+                visible,
+                src: 'asset/images/linh.jpg',
+                onVisibleChange: value => {
+                  setVisible(value);
+                },
               }}
-              icon={<AntDesignOutlined />}
             />
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+          <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Nguyễn Hoàng Minh Tú</Footer>
         </Layout>
       </Layout>
     </>

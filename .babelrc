@@ -34,6 +34,8 @@
             "allowTopLevelThis": true
         }],
         "@babel/plugin-proposal-json-strings",
+        ["file-loader"],
+        ["css-modules-transform"],
         ["import", { "libraryName": "antd", "libraryDirectory": "lib",  "style": true },"antd"],
         ["import", {"libraryName": "lodash", "libraryDirectory": "", "camel2DashComponentName": false}]
     ],

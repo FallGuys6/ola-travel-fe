@@ -13,7 +13,7 @@ And run Webpack to watch for code changes and bundle js and scss files:
 npm run dev
 ```
 
-Project will be automatically open at http://localhost.com:3333
+Project will be automatically open at http://localhost.com:3002
 
 For production build:
 

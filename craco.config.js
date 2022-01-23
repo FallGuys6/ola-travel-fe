@@ -9,13 +9,24 @@ const WebpackBar = require("webpackbar");
 const { merge } = require("webpack-merge");
 const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require('terser-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const env = process.env.NODE_ENV;
 const devMode = process.env.NODE_ENV !== "production";
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
 
 module.exports = {
   reactScriptsVersion: "react-scripts",
+  style: {
+    css: {
+      loaderOptions: (cssLoaderOptions, { env, paths }) => { return cssLoaderOptions; }
+    },
+    sass: {
+      loaderOptions: (sassLoaderOptions, { env, paths }) => { return sassLoaderOptions; }
+    },
+    postcss:{
+      loaderOptions: (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
+    }
+  },
   //Config webpack
   webpack: {
     //Alias configuration
@@ -29,6 +40,7 @@ module.exports = {
       store: pathResolve("src/store"),
       utils: pathResolve("src/utilities"),
     },
+    configure: (webpackConfig, { env, paths }) => { return webpackConfig; },
     plugins: [
       //Webpack build progress bar
       new WebpackBar({
@@ -65,18 +77,18 @@ module.exports = {
             hashDigestLength: 20,
           }),
           new webpack.optimize.ModuleConcatenationPlugin(),
-            new TerserPlugin({
-              test: /\.js(\?.*)?$/i,
-              parallel: true,
-              extractComments: 'all',
-              terserOptions: {
-                mangle: {
-                  keep_fnames: false
-                },
-                compress: {
-                  drop_console: true
-                }
-              }
+          new TerserPlugin({
+            test: /\.js(\?.*)?$/i,
+            parallel: true,
+            extractComments: "all",
+            terserOptions: {
+              mangle: {
+                keep_fnames: false,
+              },
+              compress: {
+                drop_console: true,
+              },
+            },
           }),
           new CompressionWebpackPlugin({
             algorithm: "gzip",
@@ -107,7 +119,7 @@ module.exports = {
             enforce: true,
           },
           minSize: 30000,
-          maxAsyncRequests: 5
+          maxAsyncRequests: 5,
         },
       },
       removeAvailableModules: true,
@@ -115,7 +127,6 @@ module.exports = {
       mergeDuplicateChunks: true,
     },
   },
-
   plugins: [
     {
       plugin: CracoLessPlugin,
@@ -141,7 +152,7 @@ module.exports = {
     historyApiFallback: true,
     compress: true,
     allowedHosts: "auto",
-    port: 3003,
+    port: 3002,
     liveReload: true,
     client: {
       overlay: {
@@ -149,5 +160,6 @@ module.exports = {
         warnings: false,
       },
     },
+    magicHtml: true,
   },
 };

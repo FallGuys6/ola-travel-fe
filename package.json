@@ -9,6 +9,8 @@
     "antd": "^4.18.4",
     "antd-img-crop": "^4.0.2",
     "axios": "^0.24.0",
+    "babel-plugin-css-modules-transform": "^1.6.2",
+    "babel-plugin-file-loader": "^2.0.0",
     "core-js": "^3.20.2",
     "env-cmd": "^10.1.0",
     "history": "^5.2.0",
