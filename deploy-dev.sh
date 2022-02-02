@@ -11,4 +11,4 @@ cd build
 cp index.html 200.html
 
 #Step 5: Run deploy 
-surge . olatravel.surge.sh
+surge . olatravels.surge.sh
