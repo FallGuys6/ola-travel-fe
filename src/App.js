@@ -12,9 +12,9 @@ import {
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-const App = () => {
+function App() {
   const [visible, setVisible] = useState(false);
-  return(
+  return (
     <>
     {/* collapsed={collapsed} */}
     {/* onCollapse={this.onCollapse} */}
@@ -71,6 +71,7 @@ const App = () => {
         </Layout>
       </Layout>
     </>
-  )
+  );
 }
+
 export default App;
