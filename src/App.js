@@ -11,7 +11,7 @@ import {
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
+import Img from './assets/images/linh.jpg';
 function App() {
   const [visible, setVisible] = useState(false);
   return (
@@ -56,10 +56,10 @@ function App() {
             <Image
               width={200}
               style={{ display: 'none' }}
-              src="asset/images/linh.jpg"
+              src={Img}
               preview={{
                 visible,
-                src: 'asset/images/linh.jpg',
+                src: Img,
                 onVisibleChange: value => {
                   setVisible(value);
                 },

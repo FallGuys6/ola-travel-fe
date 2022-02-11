@@ -1,67 +1,98 @@
-const path = require("path");
-const { when, whenDev, whenProd } = require("@craco/craco");
-const CracoLessPlugin = require("craco-less");
-const CracoAntDesignPlugin = require("craco-antd");
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const CleanCSSPlugin = require("less-plugin-clean-css");
-const SimpleProgressWebpackPlugin = require("simple-progress-webpack-plugin");
-const WebpackBar = require("webpackbar");
-const { merge } = require("webpack-merge");
-const webpack = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
+const path = require('path');
+const { when, whenDev, whenProd } = require('@craco/craco');
+const CracoLessPlugin = require('craco-less');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const CleanCSSPlugin = require('less-plugin-clean-css');
+const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
+const WebpackBar = require('webpackbar');
+const { merge } = require('webpack-merge');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const globImporter = require('node-sass-glob-importer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const svgToMiniDataURI = require('mini-svg-data-uri');
 const env = process.env.NODE_ENV;
-const devMode = process.env.NODE_ENV !== "production";
-const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
+const devMode = process.env.NODE_ENV !== 'production';
+const pathResolve = pathUrl => path.join(__dirname, pathUrl);
 
 module.exports = {
-  reactScriptsVersion: "react-scripts",
-  style: {
-    css: {
-      loaderOptions: (cssLoaderOptions, { env, paths }) => { return cssLoaderOptions; }
-    },
-    sass: {
-      loaderOptions: (sassLoaderOptions, { env, paths }) => { return sassLoaderOptions; }
-    },
-    postcss:{
-      loaderOptions: (postcssLoaderOptions, { env, paths }) => { return postcssLoaderOptions; }
-    }
-  },
-  //Config webpack
+  reactScriptsVersion: 'react-scripts',
+
+  // Config webpack
   webpack: {
     //Alias configuration
-    alias: {
-      "@": pathResolve("."),
-      src: pathResolve("src"),
-      assets: pathResolve("src/assets"),
-      components: pathResolve("src/components"),
-      hooks: pathResolve("src/hooks"),
-      pages: pathResolve("src/pages"),
-      store: pathResolve("src/store"),
-      utils: pathResolve("src/utilities"),
+    resolve: {
+      alias: {
+        '@': pathResolve('.'),
+        '@src': pathResolve('src'),
+        '@assets': pathResolve('src/assets'),
+        '@components': pathResolve('src/components'),
+        '@hooks': pathResolve('src/hooks'),
+        '@pages': pathResolve('src/pages'),
+        '@utils': pathResolve('src/utilities'),
+      },
+      extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
+      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     },
-    configure: (webpackConfig, { env, paths }) => { return webpackConfig; },
+    module: {
+      rules: [
+        {
+          test: /\.(sa|sc|c)ss$/,
+          use: [
+            {
+              loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+            },
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sassOptions: {
+                  importer: globImporter(),
+                },
+              },
+            },
+          ],
+        },
+        {
+          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                fallback: 'file-loader',
+                limit: false,
+                generator: content => svgToMiniDataURI(content.toString()),
+                name: '[path][name].[ext][query]',
+                useRelativePath: true,
+              },
+            },
+          ],
+          type: 'javascript/auto',
+        },
+        {
+          test: /\.json$/,
+          exclude: /node_modules/,
+          use: ['json-loader'],
+          type: 'javascript/auto',
+        },
+      ],
+    },
     plugins: [
       //Webpack build progress bar
       new WebpackBar({
         profile: true,
       }),
       //View the progress of packaging
-      new SimpleProgressWebpackPlugin({
-        name: "webpack run build....",
-      }),
+      new SimpleProgressWebpackPlugin(),
       new MiniCssExtractPlugin({
-        filename: devMode ? "[name].css" : "[name].[hash:6].css",
-        chunkFilename: devMode ? "[id].css" : "[id].[hash:6].css",
+        filename: devMode ? '[name].css' : '[name].[hash:6].css',
+        chunkFilename: devMode ? '[id].css' : '[id].[hash:6].css',
       }),
-      ...whenDev(
-        () => [
-          new webpack.HotModuleReplacementPlugin(),
-          new webpack.AutomaticPrefetchPlugin(),
-          new webpack.NoEmitOnErrorsPlugin(),
-        ],
-        []
-      ),
+      ...whenDev(() => [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin()], []),
       ...whenProd(
         () => [
           new webpack.optimize.LimitChunkCountPlugin({
@@ -72,15 +103,15 @@ module.exports = {
           }),
           new webpack.ids.HashedModuleIdsPlugin({
             context: path.resolve(__dirname),
-            hashFunction: "sha256",
-            hashDigest: "hex",
+            hashFunction: 'sha256',
+            hashDigest: 'hex',
             hashDigestLength: 20,
           }),
           new webpack.optimize.ModuleConcatenationPlugin(),
           new TerserPlugin({
             test: /\.js(\?.*)?$/i,
             parallel: true,
-            extractComments: "all",
+            extractComments: 'all',
             terserOptions: {
               mangle: {
                 keep_fnames: false,
@@ -91,8 +122,8 @@ module.exports = {
             },
           }),
           new CompressionWebpackPlugin({
-            algorithm: "gzip",
-            test: new RegExp("\\.(" + ["js", "css"].join("|") + ")$"),
+            algorithm: 'gzip',
+            test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
             threshold: 1024,
             minRatio: 0.8,
           }),
@@ -102,19 +133,28 @@ module.exports = {
     ],
     //Extract common module
     optimization: {
+      namedModules: false,
+      namedChunks: false,
+      nodeEnv: 'production',
+      flagIncludedChunks: true,
+      occurrenceOrder: true,
+      sideEffects: true,
+      usedExports: true,
+      concatenateModules: true,
+      minimize: true,
       runtimeChunk: true,
       splitChunks: {
         cacheGroups: {
           commons: {
-            chunks: "all",
+            chunks: 'all',
             minChunks: 2,
             maxInitialRequests: 5,
             minSize: 0,
           },
           vendor: {
             test: /node_modules/,
-            chunks: "all",
-            name: "vendor",
+            chunks: 'all',
+            name: 'vendor',
             priority: 10,
             enforce: true,
           },
@@ -127,31 +167,33 @@ module.exports = {
       mergeDuplicateChunks: true,
     },
   },
+
   plugins: [
     {
       plugin: CracoLessPlugin,
       options: {
         lessLoaderOptions: {
           lessOptions: {
-            modifyVars: { "@primary-color": "#FF4D4F" },
+            modifyVars: { '@primary-color': '#FF4D4F' },
             javascriptEnabled: true,
-            paths: [path.resolve(__dirname, "node_modules")],
+            paths: [path.resolve(__dirname, 'node_modules')],
             plugins: [new CleanCSSPlugin({ advanced: true })],
           },
         },
         babelPluginImportOptions: {
-          libraryDirectory: "lib",
+          libraryDirectory: 'es',
         },
       },
     },
   ],
+
   devServer: {
     server: {
-      type: "http",
+      type: 'http',
     },
     historyApiFallback: true,
     compress: true,
-    allowedHosts: "auto",
+    allowedHosts: 'auto',
     port: 3002,
     liveReload: true,
     client: {

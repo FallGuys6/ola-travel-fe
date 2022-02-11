@@ -3,7 +3,7 @@
 Goto the project folder and install required dependencies:
 
 ```
-npm install
+npm install or npm install --legacy-peer-deps
 
 ```
 And run Webpack to watch for code changes and bundle js and scss files:
