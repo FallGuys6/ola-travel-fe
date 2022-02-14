@@ -15,27 +15,27 @@ const svgToMiniDataURI = require('mini-svg-data-uri');
 const env = process.env.NODE_ENV;
 const devMode = process.env.NODE_ENV !== 'production';
 const pathJoin = pathUrl => path.join(__dirname, pathUrl);
-const pathResolve = pathUrl => path.resolve(__dirname, pathUrl);
+
 module.exports = {
   reactScriptsVersion: 'react-scripts',
 
   // Config webpack
   webpack: {
     //Alias configuration
-      alias: {
-      '@': pathResolve('.'),
-      '@src': pathResolve('./src'),
-      '@assets': pathResolve('./src/assets'),
-      '@components': pathResolve('./src/components'),
-      '@hooks': pathResolve('./src/hooks'),
-      '@pages': pathResolve('./src/pages'),
-      '@utils': pathResolve('./src/utilities'),
-      '@layouts': pathResolve('./src/layouts'),
+    alias: {
+      '@': pathJoin('.'),
+      '@src': pathJoin('./src'),
+      '@assets': pathJoin('./src/assets'),
+      '@components': pathJoin('./src/components'),
+      '@hooks': pathJoin('./src/hooks'),
+      '@pages': pathJoin('./src/pages'),
+      '@utils': pathJoin('./src/utilities'),
+      '@layouts': pathJoin('./src/layouts'),
     },
     configure: (webpackConfig={
       resolve: {
         extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
-        modules: [pathResolve('./src'), 'node_modules'],
+        modules: [pathJoin('./src'), 'node_modules'],
       },
       module: {
         rules: [
@@ -83,8 +83,42 @@ module.exports = {
           },
         ],
       },
+      //Extract common module
+      optimization: {
+        namedModules: false,
+        namedChunks: false,
+        nodeEnv: 'production',
+        flagIncludedChunks: true,
+        occurrenceOrder: true,
+        sideEffects: true,
+        usedExports: true,
+        concatenateModules: true,
+        minimize: true,
+        runtimeChunk: true,
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              chunks: 'all',
+              minChunks: 2,
+              maxInitialRequests: 5,
+              minSize: 0,
+            },
+            vendor: {
+              test: /node_modules/,
+              chunks: 'all',
+              name: 'vendor',
+              priority: 10,
+              enforce: true,
+            },
+            minSize: 30000,
+            maxAsyncRequests: 5,
+          },
+        },
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        mergeDuplicateChunks: true,
+      },
     }, { env, paths }) => { return webpackConfig; },
-    
     plugins: [
       //Webpack build progress bar
       new WebpackBar({
@@ -141,41 +175,6 @@ module.exports = {
         []
       ),
     ],
-    //Extract common module
-    optimization: {
-      namedModules: false,
-      namedChunks: false,
-      nodeEnv: 'production',
-      flagIncludedChunks: true,
-      occurrenceOrder: true,
-      sideEffects: true,
-      usedExports: true,
-      concatenateModules: true,
-      minimize: true,
-      runtimeChunk: true,
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            chunks: 'all',
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 0,
-          },
-          vendor: {
-            test: /node_modules/,
-            chunks: 'all',
-            name: 'vendor',
-            priority: 10,
-            enforce: true,
-          },
-          minSize: 30000,
-          maxAsyncRequests: 5,
-        },
-      },
-      removeAvailableModules: true,
-      removeEmptyChunks: true,
-      mergeDuplicateChunks: true,
-    },
   },
 
   plugins: [
