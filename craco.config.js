@@ -14,73 +14,77 @@ const TerserPlugin = require('terser-webpack-plugin');
 const svgToMiniDataURI = require('mini-svg-data-uri');
 const env = process.env.NODE_ENV;
 const devMode = process.env.NODE_ENV !== 'production';
-const pathResolve = pathUrl => path.join(__dirname, pathUrl);
-
+const pathJoin = pathUrl => path.join(__dirname, pathUrl);
+const pathResolve = pathUrl => path.resolve(__dirname, pathUrl);
 module.exports = {
   reactScriptsVersion: 'react-scripts',
 
   // Config webpack
   webpack: {
     //Alias configuration
-    resolve: {
       alias: {
-        '@': pathResolve('.'),
-        '@src': pathResolve('src'),
-        '@assets': pathResolve('src/assets'),
-        '@components': pathResolve('src/components'),
-        '@hooks': pathResolve('src/hooks'),
-        '@pages': pathResolve('src/pages'),
-        '@utils': pathResolve('src/utilities'),
-      },
-      extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
-      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+      '@': pathResolve('.'),
+      '@src': pathResolve('./src'),
+      '@assets': pathResolve('./src/assets'),
+      '@components': pathResolve('./src/components'),
+      '@hooks': pathResolve('./src/hooks'),
+      '@pages': pathResolve('./src/pages'),
+      '@utils': pathResolve('./src/utilities'),
+      '@layouts': pathResolve('./src/layouts'),
     },
-    module: {
-      rules: [
-        {
-          test: /\.(sa|sc|c)ss$/,
-          use: [
-            {
-              loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sassOptions: {
-                  importer: globImporter(),
+    configure: (webpackConfig={
+      resolve: {
+        extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
+        modules: [pathResolve('./src'), 'node_modules'],
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(sa|sc|c)ss$/,
+            use: [
+              {
+                loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              },
+              {
+                loader: 'css-loader',
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  sassOptions: {
+                    importer: globImporter(),
+                  },
                 },
               },
-            },
-          ],
-        },
-        {
-          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                fallback: 'file-loader',
-                limit: false,
-                generator: content => svgToMiniDataURI(content.toString()),
-                name: '[path][name].[ext][query]',
-                useRelativePath: true,
+            ],
+          },
+          {
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
+            exclude: /node_modules/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  fallback: 'file-loader',
+                  limit: false,
+                  generator: content => svgToMiniDataURI(content.toString()),
+                  name: '[path][name].[ext][query]',
+                  useRelativePath: true,
+                },
               },
-            },
-          ],
-          type: 'javascript/auto',
-        },
-        {
-          test: /\.json$/,
-          exclude: /node_modules/,
-          use: ['json-loader'],
-          type: 'javascript/auto',
-        },
-      ],
-    },
+            ],
+            type: 'javascript/auto',
+          },
+          {
+            test: /\.json$/,
+            exclude: /node_modules/,
+            use: ['json-loader'],
+            type: 'javascript/auto',
+          },
+        ],
+      },
+    }, { env, paths }) => { return webpackConfig; },
+    
     plugins: [
       //Webpack build progress bar
       new WebpackBar({
@@ -88,6 +92,12 @@ module.exports = {
       }),
       //View the progress of packaging
       new SimpleProgressWebpackPlugin(),
+      new CopyWebpackPlugin({
+        patterns: [{ from: 'src/assets', to: 'public' }],
+        options: {
+          concurrency: 100,
+        },
+      }),
       new MiniCssExtractPlugin({
         filename: devMode ? '[name].css' : '[name].[hash:6].css',
         chunkFilename: devMode ? '[id].css' : '[id].[hash:6].css',
