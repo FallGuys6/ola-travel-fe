@@ -24,6 +24,7 @@ module.exports = {
     //Alias configuration
     alias: {
       '@': pathJoin('.'),
+      '@apis': pathJoin('src/apis'),
       '@src': pathJoin('./src'),
       '@assets': pathJoin('./src/assets'),
       '@components': pathJoin('./src/components'),
@@ -31,6 +32,10 @@ module.exports = {
       '@pages': pathJoin('./src/pages'),
       '@utils': pathJoin('./src/utilities'),
       '@layouts': pathJoin('./src/layouts'),
+      '@app': pathJoin('./src/app'),
+      '@configs': pathJoin('./src/configs'),
+      '@models': pathJoin('./src/models'),
+      "@routers": pathJoin('./src/routers'),
     },
     configure: (webpackConfig={
       resolve: {
@@ -56,6 +61,21 @@ module.exports = {
                   },
                 },
               },
+            ],
+          },
+          {
+            test: /\.svg$/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['preact', 'env'],
+                },
+              },
+              {
+                loader: '@svgr/webpack',
+                options: { babel: false },
+              }
             ],
           },
           {
