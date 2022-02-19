@@ -14,7 +14,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const svgToMiniDataURI = require('mini-svg-data-uri');
 const env = process.env.NODE_ENV;
 const devMode = process.env.NODE_ENV !== 'production';
-const pathResolve = pathUrl => path.join(__dirname, pathUrl);
+const pathJoin = pathUrl => path.join(__dirname, pathUrl);
 
 module.exports = {
   reactScriptsVersion: 'react-scripts',
@@ -22,65 +22,123 @@ module.exports = {
   // Config webpack
   webpack: {
     //Alias configuration
-    resolve: {
-      alias: {
-        '@': pathResolve('.'),
-        '@src': pathResolve('src'),
-        '@assets': pathResolve('src/assets'),
-        '@components': pathResolve('src/components'),
-        '@hooks': pathResolve('src/hooks'),
-        '@pages': pathResolve('src/pages'),
-        '@utils': pathResolve('src/utilities'),
-      },
-      extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
-      modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    alias: {
+      '@': pathJoin('.'),
+      '@apis': pathJoin('src/apis'),
+      '@src': pathJoin('./src'),
+      '@assets': pathJoin('./src/assets'),
+      '@components': pathJoin('./src/components'),
+      '@hooks': pathJoin('./src/hooks'),
+      '@pages': pathJoin('./src/pages'),
+      '@utils': pathJoin('./src/utilities'),
+      '@layouts': pathJoin('./src/layouts'),
+      '@app': pathJoin('./src/app'),
+      '@configs': pathJoin('./src/configs'),
+      '@models': pathJoin('./src/models'),
+      "@routers": pathJoin('./src/routers'),
     },
-    module: {
-      rules: [
-        {
-          test: /\.(sa|sc|c)ss$/,
-          use: [
-            {
-              loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
-            },
-            {
-              loader: 'css-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sassOptions: {
-                  importer: globImporter(),
+    configure: (webpackConfig={
+      resolve: {
+        extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
+        modules: [pathJoin('./src'), 'node_modules'],
+      },
+      module: {
+        rules: [
+          {
+            test: /\.(sa|sc|c)ss$/,
+            use: [
+              {
+                loader: devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+              },
+              {
+                loader: 'css-loader',
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  sassOptions: {
+                    importer: globImporter(),
+                  },
                 },
               },
-            },
-          ],
-        },
-        {
-          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
-          exclude: /node_modules/,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                fallback: 'file-loader',
-                limit: false,
-                generator: content => svgToMiniDataURI(content.toString()),
-                name: '[path][name].[ext][query]',
-                useRelativePath: true,
+            ],
+          },
+          {
+            test: /\.svg$/,
+            use: [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['preact', 'env'],
+                },
               },
+              {
+                loader: '@svgr/webpack',
+                options: { babel: false },
+              }
+            ],
+          },
+          {
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
+            exclude: /node_modules/,
+            use: [
+              {
+                loader: 'url-loader',
+                options: {
+                  fallback: 'file-loader',
+                  limit: false,
+                  generator: content => svgToMiniDataURI(content.toString()),
+                  name: '[path][name].[ext][query]',
+                  useRelativePath: true,
+                },
+              },
+            ],
+            type: 'javascript/auto',
+          },
+          {
+            test: /\.json$/,
+            exclude: /node_modules/,
+            use: ['json-loader'],
+            type: 'javascript/auto',
+          },
+        ],
+      },
+      //Extract common module
+      optimization: {
+        namedModules: false,
+        namedChunks: false,
+        nodeEnv: 'production',
+        flagIncludedChunks: true,
+        occurrenceOrder: true,
+        sideEffects: true,
+        usedExports: true,
+        concatenateModules: true,
+        minimize: true,
+        runtimeChunk: true,
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              chunks: 'all',
+              minChunks: 2,
+              maxInitialRequests: 5,
+              minSize: 0,
             },
-          ],
-          type: 'javascript/auto',
+            vendor: {
+              test: /node_modules/,
+              chunks: 'all',
+              name: 'vendor',
+              priority: 10,
+              enforce: true,
+            },
+            minSize: 30000,
+            maxAsyncRequests: 5,
+          },
         },
-        {
-          test: /\.json$/,
-          exclude: /node_modules/,
-          use: ['json-loader'],
-          type: 'javascript/auto',
-        },
-      ],
-    },
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        mergeDuplicateChunks: true,
+      },
+    }, { env, paths }) => { return webpackConfig; },
     plugins: [
       //Webpack build progress bar
       new WebpackBar({
@@ -88,6 +146,12 @@ module.exports = {
       }),
       //View the progress of packaging
       new SimpleProgressWebpackPlugin(),
+      new CopyWebpackPlugin({
+        patterns: [{ from: 'src/assets', to: 'public' }],
+        options: {
+          concurrency: 100,
+        },
+      }),
       new MiniCssExtractPlugin({
         filename: devMode ? '[name].css' : '[name].[hash:6].css',
         chunkFilename: devMode ? '[id].css' : '[id].[hash:6].css',
@@ -131,41 +195,6 @@ module.exports = {
         []
       ),
     ],
-    //Extract common module
-    optimization: {
-      namedModules: false,
-      namedChunks: false,
-      nodeEnv: 'production',
-      flagIncludedChunks: true,
-      occurrenceOrder: true,
-      sideEffects: true,
-      usedExports: true,
-      concatenateModules: true,
-      minimize: true,
-      runtimeChunk: true,
-      splitChunks: {
-        cacheGroups: {
-          commons: {
-            chunks: 'all',
-            minChunks: 2,
-            maxInitialRequests: 5,
-            minSize: 0,
-          },
-          vendor: {
-            test: /node_modules/,
-            chunks: 'all',
-            name: 'vendor',
-            priority: 10,
-            enforce: true,
-          },
-          minSize: 30000,
-          maxAsyncRequests: 5,
-        },
-      },
-      removeAvailableModules: true,
-      removeEmptyChunks: true,
-      mergeDuplicateChunks: true,
-    },
   },
 
   plugins: [
