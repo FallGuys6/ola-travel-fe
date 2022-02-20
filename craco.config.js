@@ -35,7 +35,8 @@ module.exports = {
       '@app': pathJoin('./src/app'),
       '@configs': pathJoin('./src/configs'),
       '@models': pathJoin('./src/models'),
-      "@routers": pathJoin('./src/routers'),
+      '@routers': pathJoin('./src/routers'),
+      '@features': pathJoin('./src/features'),
     },
     configure: (webpackConfig={
       resolve: {

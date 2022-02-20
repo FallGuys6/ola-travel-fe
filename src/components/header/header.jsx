@@ -10,7 +10,7 @@ const { Title, Text } = Typography;
 
 
 
-const HeaderComponent = props => {
+const HeaderComponent = ({infoUser}) => {
   const [activeMenu, setActiveMenu] = useState('');
 
   function handleSelectItem(e) {
