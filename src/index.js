@@ -6,13 +6,13 @@ import 'core-js/stable';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './scss/style.scss';
-import './app.less';
+import './App.less';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ConfigProvider } from 'antd';
 import en_US from 'antd/lib/locale/en_US';
 import { history } from '@utils/index';
 import initStore from './app/configureStore';
-import App from './app';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 const store = initStore();
