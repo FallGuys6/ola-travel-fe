@@ -1,0 +1,8 @@
+import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router'
+import { history } from '@utils/index';
+import userSlice from './user/userSlice';
+export default combineReducers({
+    router:connectRouter(history),
+    user:userSlice
+});
