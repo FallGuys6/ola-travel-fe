@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware, { END } from "redux-saga";
 import {routerMiddleware} from 'connected-react-router';
-import rootReducer from './reducers';
-import rootSaga from './generators';
+import rootReducer from '@features/rootReducer';
+import rootSaga from '@features/rootSaga';
 import 'regenerator-runtime/runtime';
-import { getPreloadedState } from '@utils/storeHelper';
+import { getPreloadedState } from './storeHelpers';
 import { history } from '@utils/index';
 export default function initStore(state={}){
     const sagaMiddleware = createSagaMiddleware();
@@ -14,7 +14,7 @@ export default function initStore(state={}){
             preloadedState: getPreloadedState(state),
             middleware: (getDefaultMiddleware) =>  getDefaultMiddleware({
                 thunk: true,
-                serializableCheck: false,
+                serializableCheck: true,
                 immutableCheck: true,
             }).concat(sagaMiddleware, routerMiddleware(history)),
             devTools: process.env.NODE_ENV !== 'production',
