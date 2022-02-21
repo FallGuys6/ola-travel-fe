@@ -81,28 +81,30 @@ const HeaderComponent = ({infoUser}) => {
                     <div className="componentHeader__top--menu">
                       <Menu onClick={handleSelectItem} selectedKeys={[activeMenu]} mode="horizontal">
                         <Menu.Item key="home">
-                          <Link to="/">Trang Chủ</Link>
+                          <Link to="/"><span className='componentHeader__top--link'>Trang Chủ</span></Link>
                         </Menu.Item>
                         <Menu.Item key="promotion">
-                          <Link to="/promotion">Ưu Đãi Cho Hôm Nay</Link>
+                          <Link to="/promotion"><span className='componentHeader__top--link'>Ưu Đãi Cho Hôm Nay</span></Link>
                         </Menu.Item>
                         <Menu.Item key="news">
-                          <Link to="/news">Tin Tức</Link>
+                          <Link to="/news"><span className='componentHeader__top--link'>Tin Tức</span></Link>
                         </Menu.Item>
                         <Menu.Item key="partner">
-                          <Link to="/partner">Đối Tác Của Chúng Tôi</Link>
+                          <Link to="/partner"><span className='componentHeader__top--link'>Đối Tác Của Chúng Tôi</span></Link>
                         </Menu.Item>
                         <Menu.Item key="about">
-                          <Link to="/about">Liên Hệ Với Doanh Nghiệp</Link>
+                          <Link to="/about"><span className='componentHeader__top--link'>Liên Hệ Với Doanh Nghiệp</span></Link>
                         </Menu.Item>
-                        {/* <Menu.Item key="login" className="disable--boder">
-                          <Link to="/login" className="custom--button-login">
-                          <UserOutlined/>
-                          Đăng Nhập / Đăng Ký
+                        <Menu.Item key="login" className="disable--boder">
+                          <Link to="/login">
+                            <button className='btn bold'>
+                              <UserOutlined className='custom--svg' />
+                              <span className='bold'>Đăng Nhập / Đăng Ký</span>
+                            </button>
                           </Link>
-                        </Menu.Item> */}
+                        </Menu.Item>
                       </Menu>
-                      <SubMenuUserInfo />
+                      {/* <SubMenuUserInfo /> */}
                     </div>
                   </Col>
                 </Row>
