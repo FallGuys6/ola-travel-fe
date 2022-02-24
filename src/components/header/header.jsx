@@ -1,112 +1,118 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Menu, Avatar, Typography, Tooltip } from 'antd';
+import { Row, Col, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { UserOutlined } from '@ant-design/icons';
+import { 
+  MenuFoldOutlined, 
+  ShoppingCartOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined
+} from '@ant-design/icons';
 import OImage from '@components/common/oImage';
 import Logo from '@assets/images/logo-ola.jpg';
-import { SliceString } from '@utils/helpers';
-import AvatarTu from '@assets/images/avatar.jpg';
-const { Title, Text } = Typography;
+import { useViewport } from '@hooks/customHooks';
+import { SubMenuUser } from './subMenu';
+const { SubMenu } = Menu;
 
-
-
-const HeaderComponent = ({infoUser}) => {
+const HeaderComponent = ({ infoUser }) => {
   const [activeMenu, setActiveMenu] = useState('');
+  const [changeIcon , setChangeIcon] = useState(false);
+  const { width } = useViewport();
+  const isMobile = width <= 768;
+  const isTablet = width <= 992;
+  const isDesktop = width > 992;
 
   function handleSelectItem(e) {
     console.log(e);
     setActiveMenu(e.key);
   }
 
-  const SubMenuUserInfo = () => {
-
-    return (
-      <React.Fragment>
-        <div className="subMenu__User">
-          <Avatar
-            // shape="square"
-            size={42}
-            src={AvatarTu}
-            gap={8}
-            crossOrigin="anonymous"
-          />
-          <Link to="/user/213123123ass" target="_blank">
-            <Title level={5} className="email" ellipsis={true}>
-              {SliceString('tunguyenhoangminh1401@gmail.com', 14)}
-            </Title>
-          </Link>
-          <div className="modal__User">
-            <div className="modal__User--top">
-              <Tooltip placement="right" title={'Nguyễn Hoàng Minh Tú'}>
-                <Title className="hello__User" level={5} ellipsis={true}>
-                  Xin chào: Nguyễn Hoàng Minh Tú
-                </Title>
-              </Tooltip>
-              <div className="roles isSupperAdmin">Supper admin</div>
-            </div>
-            <div className="modal__User--body">
-              <Title ellipsis={true} level={5} className="title--info">
-                Thông tin cá nhân
-              </Title>
-            </div>
-          </div>
-        </div>
-      </React.Fragment>
-    );
-  };
+  function handleClickIcon(e){
+    setChangeIcon(!changeIcon);
+  }
 
   return (
     <React.Fragment>
       <div className="componentHeader">
-        <Row>
-          <Col span={24}>
-            <div className={`componentHeader__top--TextSlideShow`}>
-              <div className="container-1440"></div>
-            </div>
-          </Col>
-        </Row>
+        {isDesktop ? (
+          <Row>
+            <Col>
+              <div className={`componentHeader__top--TextSlideShow`}>
+                <div className="container-1440"></div>
+              </div>
+            </Col>
+          </Row>
+        ) : null}
+
         <Row align="middle">
-          <Col span={24}>
+          <Col xs={24} lg={24}>
             <div className={`componentHeader__top--navigation`}>
               <div className="container-1440">
-                <Row>
-                  <Col span={3}>
+                <Row justify="start" align="middle">
+                  {
+                    isMobile?(
+                      <Col lg={3} xs={7} style={{"lineHeight":"30px"}}>
+                      <Button type="text" size="large" icon={ changeIcon ?<MenuFoldOutlined style={{"fontSize":"30px","color":"#213362"}}/>:<MenuUnfoldOutlined  style={{"fontSize":"30px","color":"#213362"}}/> } onClick={handleClickIcon}/>
+                      </Col>
+                    ):null
+                  }
+                  <Col lg={3} xs={17}>
                     <Link to="/">
                       <div className="componentHeader__top--logo">
                         <OImage className="brand-logo" src={Logo} alt="Logo Olatravel" preview={false} />
                       </div>
                     </Link>
                   </Col>
-                  <Col span={21}>
-                    <div className="componentHeader__top--menu">
-                      <Menu onClick={handleSelectItem} selectedKeys={[activeMenu]} mode="horizontal">
-                        <Menu.Item key="home">
-                          <Link to="/"><span className='componentHeader__top--link'>Trang Chủ</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="promotion">
-                          <Link to="/promotion"><span className='componentHeader__top--link'>Ưu Đãi Cho Hôm Nay</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="news">
-                          <Link to="/news"><span className='componentHeader__top--link'>Tin Tức</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="partner">
-                          <Link to="/partner"><span className='componentHeader__top--link'>Đối Tác Của Chúng Tôi</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="about">
-                          <Link to="/about"><span className='componentHeader__top--link'>Liên Hệ Với Doanh Nghiệp</span></Link>
-                        </Menu.Item>
-                        <Menu.Item key="login" className="disable--boder">
+                  {/* {
+                    isMobile?(
+                      <Col lg={3} style={{"lineHeight":"30px"}}>
+                      <Button type="text" size="large" icon={<ShoppingCartOutlined style={{"fontSize":"30px","color":"#213362"}} />}/>
+                      </Col>
+                    ):null
+                  } */}
+                  {isDesktop ? (
+                    <Col span={21}>
+                      <div className="componentHeader__top--menu">
+                        <Menu onClick={handleSelectItem} selectedKeys={[activeMenu]} mode="horizontal">
+                          <Menu.Item key="home">
+                            <Link to="/">
+                              <span className="componentHeader__top--link">Home</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item key="promotion">
+                            <Link to="/promotion">
+                              <span className="componentHeader__top--link">Deals For Today</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item key="news">
+                            <Link to="/news">
+                              <span className="componentHeader__top--link">News</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item key="partner">
+                            <Link to="/partner">
+                              <span className="componentHeader__top--link">Our Partner</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item key="about">
+                            <Link to="/about">
+                              <span className="componentHeader__top--link">Contact</span>
+                            </Link>
+                          </Menu.Item>
+                          <Menu.Item key="login" className="disable--boder">
                           <Link to="/login">
                             <button className='btn bold'>
                               <UserOutlined className='custom--svg' />
-                              <span className='bold'>Đăng Nhập / Đăng Ký</span>
+                              <span className='bold'>Login / Registers</span>
                             </button>
                           </Link>
                         </Menu.Item>
-                      </Menu>
-                      {/* <SubMenuUserInfo /> */}
-                    </div>
-                  </Col>
+                        </Menu>
+                        {/* <SubMenuUser dataUser={{
+                          roles:'admin'
+                        }} /> */}
+                      </div>
+                    </Col>
+                  ) : null}
                 </Row>
               </div>
             </div>
