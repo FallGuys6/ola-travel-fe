@@ -7,6 +7,7 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './scss/style.scss';
 import './app.less';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ConfigProvider } from 'antd';
 import en_US from 'antd/lib/locale/en_US';
@@ -16,6 +17,17 @@ import App from './app';
 import * as serviceWorker from './serviceWorker';
 
 const store = initStore();
+
+toast.configure({
+  position: "top-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  limit:3
+})
 
 ReactDOM.render(
   <React.Fragment>
