@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const DEVELOPMENT_API_HOST = 'https://olatravel-api-dev.herokuapp.com';
-const PRODUCTION_API_HOST = 'https://olatravel-api.herokuapp.com';
+const DEVELOPMENT_API_HOST = 'https://olatravel-api-dev.herokuapp.com/api';
+const PRODUCTION_API_HOST = 'https://olatravel-api.herokuapp.com/api';
 
 export const getBaseHost = () => {
   {/**get base host */}
@@ -17,11 +17,9 @@ export const getBaseHost = () => {
 
 
 const axiosInstance = axios.create({
-  url: '/api',
   baseURL: getBaseHost(),
   maxContentLength: 10000,
   maxBodyLength: 10000,
-  withCredentials: true,
   headers: {
     Authorization: {
       toString: () => {
