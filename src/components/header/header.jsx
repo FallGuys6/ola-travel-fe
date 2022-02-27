@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Row, Col, Menu, Button } from 'antd';
 import { Link } from 'react-router-dom';
-import { 
-  MenuFoldOutlined, 
+import {
+  MenuFoldOutlined,
   ShoppingCartOutlined,
   MenuUnfoldOutlined,
   UserOutlined
@@ -15,7 +15,7 @@ const { SubMenu } = Menu;
 
 const HeaderComponent = ({ infoUser }) => {
   const [activeMenu, setActiveMenu] = useState('');
-  const [changeIcon , setChangeIcon] = useState(false);
+  const [changeIcon, setChangeIcon] = useState(false);
   const { width } = useViewport();
   const isMobile = width <= 768;
   const isTablet = width <= 992;
@@ -26,7 +26,7 @@ const HeaderComponent = ({ infoUser }) => {
     setActiveMenu(e.key);
   }
 
-  function handleClickIcon(e){
+  function handleClickIcon(e) {
     setChangeIcon(!changeIcon);
   }
 
@@ -49,11 +49,11 @@ const HeaderComponent = ({ infoUser }) => {
               <div className="container-1440">
                 <Row justify="start" align="middle">
                   {
-                    isMobile?(
-                      <Col lg={3} xs={7} style={{"lineHeight":"30px"}}>
-                      <Button type="text" size="large" icon={ changeIcon ?<MenuFoldOutlined style={{"fontSize":"30px","color":"#213362"}}/>:<MenuUnfoldOutlined  style={{"fontSize":"30px","color":"#213362"}}/> } onClick={handleClickIcon}/>
+                    isMobile ? (
+                      <Col lg={3} xs={7} style={{ "lineHeight": "30px" }}>
+                        <Button type="text" size="large" icon={changeIcon ? <MenuFoldOutlined style={{ "fontSize": "30px", "color": "#213362" }} /> : <MenuUnfoldOutlined style={{ "fontSize": "30px", "color": "#213362" }} />} onClick={handleClickIcon} />
                       </Col>
-                    ):null
+                    ) : null
                   }
                   <Col lg={3} xs={17}>
                     <Link to="/">
@@ -75,41 +75,41 @@ const HeaderComponent = ({ infoUser }) => {
                         <Menu onClick={handleSelectItem} selectedKeys={[activeMenu]} mode="horizontal">
                           <Menu.Item key="home">
                             <Link to="/">
-                              <span className="componentHeader__top--link">Home</span>
+                              <span className="componentHeader__top--link">Trang Chủ</span>
                             </Link>
                           </Menu.Item>
                           <Menu.Item key="promotion">
                             <Link to="/promotion">
-                              <span className="componentHeader__top--link">Deals For Today</span>
+                              <span className="componentHeader__top--link">Khuyến Mãi</span>
                             </Link>
                           </Menu.Item>
                           <Menu.Item key="news">
                             <Link to="/news">
-                              <span className="componentHeader__top--link">News</span>
+                              <span className="componentHeader__top--link">Tin Tức</span>
                             </Link>
                           </Menu.Item>
                           <Menu.Item key="partner">
                             <Link to="/partner">
-                              <span className="componentHeader__top--link">Our Partner</span>
+                              <span className="componentHeader__top--link">Đối Tác</span>
                             </Link>
                           </Menu.Item>
                           <Menu.Item key="about">
                             <Link to="/about">
-                              <span className="componentHeader__top--link">Contact</span>
+                              <span className="componentHeader__top--link">Liên Hệ</span>
                             </Link>
                           </Menu.Item>
-                          <Menu.Item key="login" className="disable--boder">
-                          <Link to="/login">
-                            <button className='btn bold'>
-                              <UserOutlined className='custom--svg' />
-                              <span className='bold'>Login / Registers</span>
-                            </button>
-                          </Link>
-                        </Menu.Item>
+                          {/* <Menu.Item key="login" className="disable--boder">
+                            <Link to="/login">
+                              <button className='btn bold'>
+                                <UserOutlined className='custom--svg' />
+                                <span className='bold'>Đăng Nhập</span>
+                              </button>
+                            </Link>
+                          </Menu.Item> */}
                         </Menu>
-                        {/* <SubMenuUser dataUser={{
-                          roles:'admin'
-                        }} /> */}
+                        <SubMenuUser dataUser={{
+                          roles: 'admin'
+                        }} />
                       </div>
                     </Col>
                   ) : null}
