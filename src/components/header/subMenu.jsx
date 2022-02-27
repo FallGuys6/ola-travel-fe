@@ -7,7 +7,7 @@ import AvatarTu from '@assets/images/avatar.jpg';
 const { Title, Text } = Typography;
 const { SubMenu } = Menu;
 
-export const SubMenuUser = ({dataUser}) => {
+export const SubMenuUser = ({ dataUser }) => {
   return (
     <React.Fragment>
       <div className="subMenu__User">
@@ -19,55 +19,55 @@ export const SubMenuUser = ({dataUser}) => {
           <div className="modal__User--top">
             <Tooltip placement="right" title={dataUser.fullName || 'Nguyễn Hoàng Minh Tú'}>
               <Title className="hello__User" level={5} ellipsis={true}>
-                Hello: {dataUser.fullName || 'Nguyễn Hoàng Minh Tú'}
+                Xin chào: {dataUser.fullName || 'Nguyễn Hoàng Minh Tú'}
               </Title>
             </Tooltip>
-            <div className={`roles ${dataUser.roles==='admin'?'isSupperAdmin': 'isUser'}`}>{dataUser.roles==='admin'?'Supper admin': 'User'}</div>
+            <div className={`roles ${dataUser.roles === 'admin' ? 'isSupperAdmin' : 'isUser'}`}>{dataUser.roles === 'admin' ? 'Supper admin' : 'User'}</div>
           </div>
           <div className="modal__User--body">
             <Title ellipsis={true} level={5} className="title--info">
-              Personal information
+              Thông Tin Tài Khoản
             </Title>
             <div className="subRouter--info">
               <Link to={`/user/${dataUser.id || ''}`} className="linkTo---info">
                 <UserOutlined />
-                <span>My account</span>
+                <span>Tài Khoản Của Tôi</span>
               </Link>
             </div>
             <div className="subRouter--info">
               <Link to={`/my-tour/${dataUser.id || ''}`} className="linkTo---info">
                 <HeartOutlined />
-                <span>Favorite tour</span>
+                <span>Tour Yêu Thích</span>
               </Link>
             </div>
             <div className="subRouter--info">
               <Link to={`/my-booking/${dataUser.id || ''}`} className="linkTo---info">
                 <ScanOutlined />
-                <span>Look up booking</span>
+                <span>Tour Đã Đặt</span>
               </Link>
             </div>
           </div>
           {dataUser.roles === 'admin' ? (
             <div className="modal__User--body">
               <Title ellipsis={true} level={5} className="title--info">
-                Manage
+                Quản Lý
               </Title>
               <div className="subRouter--info">
                 <Link to={`/business/`} className="linkTo---info">
                   <ProfileOutlined />
-                  <span>All companies</span>
+                  <span>Danh Sách Công Ty</span>
                 </Link>
               </div>
               <div className="subRouter--info">
                 <Link to={`/list-user/`} className="linkTo---info">
-                <TeamOutlined />
-                  <span>User list</span>
+                  <TeamOutlined />
+                  <span>Danh Sách Khách Hàng</span>
                 </Link>
               </div>
               <div className="subRouter--info">
                 <Link to={`/all-tour/`} className="linkTo---info">
                   <ScheduleOutlined />
-                  <span>All tours</span>
+                  <span>Danh Sách Tour</span>
                 </Link>
               </div>
             </div>
@@ -76,7 +76,7 @@ export const SubMenuUser = ({dataUser}) => {
             <div className="subRouter--info">
               <Link to={`/logout/${dataUser.id || ''}`} className="linkTo---info">
                 <LogoutOutlined />
-                <span>Logout</span>
+                <span>Đăng Xuất</span>
               </Link>
             </div>
           </div>
