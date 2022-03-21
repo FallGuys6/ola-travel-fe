@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta property="og:title" content="OLA TRAVELS" />
-    <meta property="og:description" content="__OG_DESCRIPTION__" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Olatravel- enjoy and experience"
-    />
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/public/images/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/public/images/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/public/images/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/public/images/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/public/images/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/public/images/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/public/images/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/public/images/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/public/images/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="144x144"  href="%PUBLIC_URL%/public/images/android-icon-144x144.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="%PUBLIC_URL%/public/images/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/public/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/public/images/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/public/images/favicon-16x16.png">
-    <link rel="manifest" href="%PUBLIC_URL%/public/manifest.json">
-    <title>Olatravel - enjoy and experience</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta property="og:title" content="OLA TRAVELS" />
+  <meta property="og:description" content="__OG_DESCRIPTION__" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Olatravel.vn - Nền tảng đặt tours tốt nhất tại Việt Nam,
+      kết nối các doanh nghiệp du lịch lữ hành đến với khách hàng một cách nhanh  chóng và hiệu quả nhất." />
+  <script async type="text/javascript">
+    try {
+      window.SERVER_DATA = __SERVER_DATA__;
+    } catch (e) {
+      window.SERVER_DATA = {};
+    }
+  </script>
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="apple-touch-icon" sizes="57x57" href="%PUBLIC_URL%/public/images/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="%PUBLIC_URL%/public/images/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="%PUBLIC_URL%/public/images/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="%PUBLIC_URL%/public/images/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="%PUBLIC_URL%/public/images/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="%PUBLIC_URL%/public/images/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="%PUBLIC_URL%/public/images/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="%PUBLIC_URL%/public/images/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/public/images/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/public/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/public/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/public/images/favicon-16x16.png">
+  <title>Olatravel.vn - Nền tảng đặt tours tốt nhất tại Việt Nam,
+    kết nối các doanh nghiệp du lịch lữ hành đến với khách hàng một cách nhanh chóng và hiệu quả nhất.</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root-app"></div>
+  <div id="root-modal"></div>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '680203450080539',
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v13.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+</body>
+
 </html>

@@ -1,0 +1,44 @@
+//custom videos background
+.override-video-js{
+    width: 100% !important;
+    .vjs-poster{
+        width: 100% !important;
+        object-fit: cover !important;
+        background-size: cover !important;
+    }
+    .vjs-tech{
+        display: block !important;
+        object-fit: cover !important;
+    }
+    .vjs-control-bar{
+        display: none !important;
+    }
+    #button-videos-intro-pause{
+        z-index: 100;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.226);
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        outline: none;
+    }
+    #button-videos-intro-volume{
+        z-index: 100;
+        position: absolute;
+        bottom: 65px;
+        right: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.226);
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        outline: none;
+    }
+}

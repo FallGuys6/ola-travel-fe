@@ -24,4 +24,20 @@ export const userConstants = {
     ACTION_USER_LOGIN_FAILED: 'user/login:failed',
     ACTION_USER_LOGIN_RESET: 'user/login:reset',
     ACTION_USER_LOGIN_CLEAN: 'user/login:clean',
+
+    /**============= ACTION REGISTER ============== */
+    ACTION_USER_REGISTER: 'user/register',
+    ACTION_USER_REGISTER_START: 'user/register:start',
+    ACTION_USER_REGISTER_SUCCESS: 'user/register:success',
+    ACTION_USER_REGISTER_FAILED: 'user/register:failed',
+    ACTION_USER_REGISTER_RESET: 'user/register:reset',
+    ACTION_USER_REGISTER_CLEAN: 'user/register:clean',
+
+    /**============= ACTION UPDATE ============== */
+    ACTION_USER_UPDATE: 'user/update',
+    ACTION_USER_UPDATE_START: 'user/update:start',
+    ACTION_USER_UPDATE_SUCCESS: 'user/update:success',
+    ACTION_USER_UPDATE_FAILED: 'user/update:failed',
+    ACTION_USER_UPDATE_RESET: 'user/update:reset',
+    ACTION_USER_UPDATE_CLEAN: 'user/update:clean',
 };

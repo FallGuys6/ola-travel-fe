@@ -2,12 +2,13 @@ import axios from 'axios';
 
 const DEVELOPMENT_API_HOST = 'https://olatravel-api-dev.herokuapp.com/api';
 const PRODUCTION_API_HOST = 'https://olatravel-api.herokuapp.com/api';
-
+const API_LOCALHOST = 'http://ola-travel-be.dev.com/api';
 export const getBaseHost = () => {
   {/**get base host */}
   switch (process.env.NODE_ENV) {
       case 'development':
-          return DEVELOPMENT_API_HOST;
+          return API_LOCALHOST;
+          // return DEVELOPMENT_API_HOST;
       case 'production':
           return PRODUCTION_API_HOST;
       default:

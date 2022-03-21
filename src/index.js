@@ -37,7 +37,7 @@ ReactDOM.render(
       </Provider>
     </ConfigProvider>
   </React.Fragment>,
-  document.getElementById('root')
+  document.getElementById('root-app')
 );
 
 serviceWorker.unregister();
