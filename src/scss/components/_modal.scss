@@ -1,0 +1,573 @@
+.override-modal-from-login {
+    .ant-modal {
+        min-height: max-content;
+
+        .ant-modal-content {
+            padding: 20px;
+            border-radius: 25px;
+
+            .ant-modal-close {
+                top: 5px;
+                right: 5px;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: rgba(228, 228, 228, 0.473);
+                }
+            }
+
+            .from-login {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .from-login__title {
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    height: 50px;
+                    padding: 10px 10px 10px 10px;
+                    margin-bottom: 10px;
+
+                    span {
+                        font-family: 'Mulish', sans-serif;
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 24px;
+                        line-height: 30px;
+                        color: #1A202C;
+
+                    }
+                }
+
+                .from-login__body {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    // padding: 20px 0;
+                    .from-login__body--item {
+                        width: 100%;
+                        height: 45px;
+                        margin-bottom: 20px;
+
+                        .from-login__body-item-button {
+                            padding: 10px 30px;
+                            width: 100%;
+                            height: 100%;
+                            box-sizing: border-box;
+                            border-radius: 12px;
+                            border: 1px solid #A0AEC0;
+                            background: none;
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: center;
+
+                            span {
+                                margin-left: 25px;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 15px;
+                                line-height: 18px;
+                                color: #1A202C;
+                            }
+                        }
+
+                        .from-login__body-item-title {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            span {
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+                                position: relative;
+
+                                &.item-title-line {
+                                    &::after {
+                                        content: '';
+                                        position: absolute;
+                                        left: -120px;
+                                        top: 50%;
+                                        width: 110px;
+                                        transform: translateY(-50%);
+                                        height: 0.1px !important;
+                                        background-color: #A0AEC0;
+                                    }
+
+                                    &::before {
+                                        content: '';
+                                        position: absolute;
+                                        right: -120px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        width: 110px;
+                                        height: 0.1px !important;
+                                        background-color: #A0AEC0;
+                                    }
+                                }
+                            }
+
+                            p {
+                                margin: 0;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #00B6F3;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    text-decoration: underline;
+                                }
+                            }
+
+                           b {
+                                margin: 0;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+
+                                span {
+                                    color: #00B6F3;
+                                    font-family: 'Mulish';
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 14px;
+                                    line-height: 18px;
+                                    &:hover {
+                                        cursor: pointer;
+                                        text-decoration: underline;
+                                    }
+                                }
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                    }
+
+                    .olatravel-login {
+                        width: 100%;
+                        height: auto;
+
+                        .ant-form-item {
+                            margin: 0px 0px 20px 0px !important;
+
+                            &:last-child {
+                                margin-bottom: 10px !important;
+                            }
+
+                            .ant-form-item-control-input-content {
+                                height: 45px;
+
+                                .ant-input {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .ant-input-password {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .olatravel-login-button-submit {
+                                    // margin-top: 10px;
+                                    width: 100%;
+                                    background: #2D16FC;
+                                    border-radius: 12px;
+                                    height: 45px;
+
+                                    span {
+                                        font-family: 'Mulish';
+                                        font-style: normal;
+                                        font-weight: 800;
+                                        font-size: 18px;
+                                        line-height: 23px;
+                                        color: $color-white;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.override-modal-from-register {
+    .ant-modal {
+        min-height: max-content;
+
+        .ant-modal-content {
+            padding: 20px;
+            border-radius: 25px;
+
+            .ant-modal-close {
+                top: 5px;
+                right: 5px;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: rgba(228, 228, 228, 0.473);
+                }
+            }
+
+            .from-register {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .from-register__title {
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    height: 50px;
+                    padding: 10px 10px 10px 10px;
+                    margin-bottom: 10px;
+
+                    span {
+                        font-family: 'Mulish', sans-serif;
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 24px;
+                        line-height: 30px;
+                        color: #1A202C;
+
+                    }
+                }
+
+                .from-register__body {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .from-register__body--item {
+                        width: 100%;
+                        height: 45px;
+                        margin-bottom: 20px;
+
+                        .from-register__body-item-title {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            span {
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+                                position: relative;
+
+                                &.item-title-line {
+                                    &::after {
+                                        content: '';
+                                        position: absolute;
+                                        left: -120px;
+                                        top: 50%;
+                                        width: 110px;
+                                        transform: translateY(-50%);
+                                        height: 0.1px !important;
+                                        background-color: #A0AEC0;
+                                    }
+
+                                    &::before {
+                                        content: '';
+                                        position: absolute;
+                                        right: -120px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        width: 110px;
+                                        height: 0.1px !important;
+                                        background-color: #A0AEC0;
+                                    }
+                                }
+                            }
+                        }
+
+                        .from-register__body-item-button {
+                            padding: 10px 30px;
+                            width: 100%;
+                            height: 100%;
+                            box-sizing: border-box;
+                            border-radius: 12px;
+                            border: 1px solid #A0AEC0;
+                            background: none;
+                            display: flex;
+                            justify-content: flex-start;
+                            align-items: center;
+
+                            span {
+                                margin-left: 25px;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 15px;
+                                line-height: 18px;
+                                color: #1A202C;
+                            }
+                        }
+
+                        .from-register__body-item-title {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            span {
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+                            }
+
+                            p {
+                                margin: 0;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #00B6F3;
+
+                                &:hover {
+                                    cursor: pointer;
+                                    text-decoration: underline;
+                                }
+                            }
+
+                            b {
+                                margin: 0;
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 700;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+
+                                span {
+                                    color: #00B6F3;
+                                    font-family: 'Mulish';
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 14px;
+                                    line-height: 18px;
+                                }
+
+                                &:hover {
+                                    cursor: pointer;
+                                }
+                            }
+                        }
+
+                    }
+
+                    .olatravel-register {
+                        width: 100%;
+                        height: auto;
+
+                        .ant-form-item {
+                            margin: 0px 0px 20px 0px !important;
+
+                            &:last-child {
+                                margin-bottom: 10px !important;
+                            }
+
+                            .ant-form-item-control-input-content {
+                                height: 45px;
+
+                                .ant-input {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .ant-input-password {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .olatravel-register-button-submit {
+                                    // margin-top: 10px;
+                                    width: 100%;
+                                    background: #2D16FC;
+                                    border-radius: 12px;
+                                    height: 45px;
+
+                                    span {
+                                        font-family: 'Mulish';
+                                        font-style: normal;
+                                        font-weight: 800;
+                                        font-size: 18px;
+                                        line-height: 23px;
+                                        color: $color-white;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+    }
+}
+
+.override-modal-from-forgot-password {
+    .ant-modal {
+        min-height: max-content;
+
+        .ant-modal-content {
+            padding: 20px;
+            border-radius: 25px;
+
+            .ant-modal-close {
+                top: 5px;
+                right: 5px;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: rgba(228, 228, 228, 0.473);
+                }
+            }
+
+            .from-forgot-password {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .from-forgot-password__title {
+                    text-align: center;
+                    display: block;
+                    width: 100%;
+                    height: 50px;
+                    padding: 10px 10px 10px 10px;
+                    margin-bottom: 10px;
+
+                    span {
+                        font-family: 'Mulish', sans-serif;
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 24px;
+                        line-height: 30px;
+                        color: #1A202C;
+
+                    }
+                }
+
+                .from-forgot-password__body {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .from-forgot-password__body--item {
+                        width: 100%;
+                        height: 45px;
+                        margin-bottom: 20px;
+
+                        .from-forgot-password__body-item-title {
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            span {
+                                font-family: 'Mulish';
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 18px;
+                                color: #1A202C;
+                            }
+                        }
+                    }
+
+                    .olatravel-forgot-password {
+                        width: 100%;
+                        height: auto;
+
+                        .ant-form-item {
+                            margin: 0px 0px 20px 0px !important;
+
+                            &:last-child {
+                                margin-bottom: 10px !important;
+                            }
+
+                            .ant-form-item-control-input-content {
+                                height: 45px;
+
+                                .ant-input {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .ant-input-password {
+                                    height: 100%;
+                                    background: #EDF2F7;
+                                    border-radius: 12px;
+                                }
+
+                                .olatravel-forgot-password-button-submit {
+                                    // margin-top: 10px;
+                                    width: 100%;
+                                    background: #2D16FC;
+                                    border-radius: 12px;
+                                    height: 45px;
+
+                                    span {
+                                        font-family: 'Mulish';
+                                        font-style: normal;
+                                        font-weight: 800;
+                                        font-size: 18px;
+                                        line-height: 23px;
+                                        color: $color-white;
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+
+            }
+        }
+    }
+}

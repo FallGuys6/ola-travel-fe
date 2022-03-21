@@ -7,9 +7,6 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './scss/style.scss';
 import './app.less';
-import 'swiper/less';
-import 'swiper/less/navigation';
-import 'swiper/less/pagination';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ConfigProvider } from 'antd';
@@ -40,7 +37,7 @@ ReactDOM.render(
       </Provider>
     </ConfigProvider>
   </React.Fragment>,
-  document.getElementById('root')
+  document.getElementById('root-app')
 );
 
 serviceWorker.unregister();

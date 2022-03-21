@@ -15,7 +15,7 @@ const svgToMiniDataURI = require('mini-svg-data-uri');
 const env = process.env.NODE_ENV;
 const devMode = process.env.NODE_ENV !== 'production';
 const pathJoin = pathUrl => path.join(__dirname, pathUrl);
-
+const pathResolve = pathUrl => path.resolve(__dirname, pathUrl);
 module.exports = {
   reactScriptsVersion: 'react-scripts',
 
@@ -66,36 +66,45 @@ module.exports = {
             ],
           },
           {
-            test: /\.svg$/,
-            use: [
-              {
-                loader: 'babel-loader',
-                options: {
-                  presets: ['preact', 'env'],
-                },
-              },
-              {
-                loader: '@svgr/webpack',
-                options: { babel: false },
-              }
-            ],
-          },
-          {
-            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf)$/,
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|otf|webp|web|mov|mp4|jpeg|mov)$/,
             exclude: /node_modules/,
             use: [
               {
                 loader: 'url-loader',
                 options: {
                   fallback: 'file-loader',
-                  limit: false,
+                  limit: 8192,
                   generator: content => svgToMiniDataURI(content.toString()),
-                  name: '[path][name].[ext][query]',
+                  name: "[path][name].[ext]",
                   useRelativePath: true,
                 },
               },
+              { loader: '@svgr/webpack', options: { icon: true,}}
             ],
             type: 'javascript/auto',
+          },
+          {
+            test: /\.html$/i,
+            use:[
+              {
+                loader: "html-loader",
+                options: {
+                  attrs:[":src"],
+                  minimize: {
+                    caseSensitive: true,
+                    collapseWhitespace: true,
+                    conservativeCollapse: true,
+                    keepClosingSlash: true,
+                    minifyCSS: true,
+                    minifyJS: true,
+                    removeComments: true,
+                    removeRedundantAttributes: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributes: true,
+                  },
+                }
+              }
+            ]
           },
           {
             test: /\.json$/,
@@ -205,7 +214,7 @@ module.exports = {
       options: {
         lessLoaderOptions: {
           lessOptions: {
-            modifyVars: { '@primary-color': '#FF4D4F' },
+            modifyVars: { '@primary-color': '#1890ff' },
             javascriptEnabled: true,
             paths: [path.resolve(__dirname, 'node_modules')],
             plugins: [new CleanCSSPlugin({ advanced: true })],

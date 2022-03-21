@@ -1,23 +1,27 @@
 import React from 'react';
 import { Layout } from 'antd';
+
 import HeaderComponent from '@components/header/header';
-const { Header, Footer, Content  } = Layout;
+import FooterComponent from '@components/footer/footer';
+import {useViewport} from '@hooks/customHooks';
 
 
-
-const LayoutAllPages = ({ childrenComponent, className }) => {
+const LayoutAllPages = ({ childrenComponent=[], className='override--layout' }) => {
+  const viewPort = useViewport()
   return (
     <React.Fragment>
-      <Layout style={typeof window === 'undefined' ? { display: 'none' } : {}}>
-        <Header style={{"maxHeight":"161px", "background":"#090D48", "padding":"0", "height":"auto"}}>
-          <HeaderComponent/>
-        </Header>
-        <Content>
-          Content
-        </Content>
-        <Footer>
-          Footer
-        </Footer>
+      <Layout style={typeof window === 'undefined' ? { display: 'none' } : {className}}>
+        {viewPort.width>=768 && <HeaderComponent />}
+        <Layout.Content>
+          {childrenComponent?childrenComponent.map(({element:Element},index)=>{
+            return(<div key={index}>
+              <Element />
+            </div>)
+          }):null}
+        </Layout.Content>
+        <Layout.Footer>
+          <FooterComponent/>
+        </Layout.Footer>
       </Layout>
     </React.Fragment>
   );

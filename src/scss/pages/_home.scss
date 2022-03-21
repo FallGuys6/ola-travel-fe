@@ -1,0 +1,55 @@
+//Title and content of the Olatravel
+.container__full--slogan-ola{
+    position: absolute;
+    z-index: 100;
+    top:25%;
+    width: 100%;
+    transform: translateY(-25%);
+    @media screen and (max-width: 768px){
+        top:38%;
+        transform: translateY(-38%);
+    }
+    .container-1200{
+        .slogan-ola__title{
+            width: 100%;
+            h1{
+                color: $color-white;
+                font-size: 84px;
+                max-width: 555px;
+                font-style: normal;
+                word-wrap: break-word;
+                font-weight: 700;
+                line-height: 84px;
+                font-family: 'Mulish', sans-serif;
+                margin-bottom: 21px;
+                // animation: slide-left 2.9s cubic-bezier(0, 1, .6, 1) both, fade-in 0.8s linear both;
+                @include animate-css(fadeInLeft);
+            }
+            @media screen and (max-width: 768px){
+                h1{
+                    font-size: 55px;
+                    line-height: 55px;
+                }
+            }
+            p{
+                color: #ffffffdc;
+                max-width: 651px;
+                word-wrap: break-word;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: lighter;
+                line-height: 28px;
+                font-family: 'Mulish', sans-serif;
+                // animation: slide-left 2.6s cubic-bezier(0, 1, .6, 1) both, fade-in 0.8s linear both;
+                @include animate-css(fadeInUp);
+            }
+            @media screen and (max-width: 768px){
+                p{
+                    font-size: 16px;
+                    line-height: 22px;
+                }
+            }
+        }
+    }
+
+}

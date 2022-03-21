@@ -1,124 +1,139 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Menu, Button } from 'antd';
-import { Link } from 'react-router-dom';
-import {
-  MenuFoldOutlined,
-  ShoppingCartOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined
-} from '@ant-design/icons';
-import OImage from '@components/common/oImage';
+import { Layout } from 'antd';
+import OlaModal from '@components/common/modal/modalFrom';
 import Logo from '@assets/images/logo-ola.jpg';
-import { useViewport } from '@hooks/customHooks';
-import { SubMenuUser } from './subMenu';
-const { SubMenu } = Menu;
+import { ReactComponent as IconCart } from '@assets/images/icon-cart.svg';
+import { ReactComponent as IconBell } from '@assets/images/icon-bell.svg';
+import { ReactComponent as IconUser } from '@assets/images/icon-user.svg';
+import { ReactComponent as IconDown } from '@assets/images/icon-down.svg';
 
-const HeaderComponent = ({ infoUser }) => {
-  const [activeMenu, setActiveMenu] = useState('');
-  const [changeIcon, setChangeIcon] = useState(false);
-  const { width } = useViewport();
-  const isMobile = width <= 768;
-  const isTablet = width <= 992;
-  const isDesktop = width > 992;
-
-  function handleSelectItem(e) {
-    console.log(e);
-    setActiveMenu(e.key);
+const PopupLogin = props => {
+  function handleSelectModalLogin() {
+    props.activeModal({
+      title: '',
+      key: 'login',
+      active: true,
+      widthModal: 410,
+    });
   }
 
-  function handleClickIcon(e) {
-    setChangeIcon(!changeIcon);
+  function handleSelectModalRegister() {
+    props.activeModal({
+      title: '',
+      key: 'register',
+      active: true,
+      widthModal: 410,
+    });
+  }
+  return (
+    <React.Fragment>
+      <div className="popup--login">
+        <span onClick={handleSelectModalLogin}>Đăng nhập</span>
+        <span onClick={handleSelectModalRegister}>Đăng ký</span>
+      </div>
+    </React.Fragment>
+  );
+};
+
+const HeaderComponent = ({infoUser, infoBusiness}) => {
+  const [notification, setNotification] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [dataModal, setDataModal] = useState({});
+
+  function handleClickUser() {
+    setShowPopup(!showPopup);
+  }
+
+  function handleActiveModal(ObjectModal) {
+    setDataModal(ObjectModal);
+    setShowModal(ObjectModal?.active);
+    setShowPopup(!showPopup);
+  }
+
+  function handleCancelModal() {
+    setShowModal(false);
+  }
+
+  function handleOkModal() {
+    setShowModal(false);
   }
 
   return (
     <React.Fragment>
-      <div className="componentHeader">
-        {isDesktop ? (
-          <Row>
-            <Col>
-              <div className={`componentHeader__top--TextSlideShow`}>
-                <div className="container-1440"></div>
+    <OlaModal
+        titleModal={dataModal?.title}
+        selectModal={dataModal?.key}
+        visible={showModal}
+        handleCancel={handleCancelModal}
+        handleOk={handleOkModal}
+        footer={null}
+        maskClosable={false}
+        width={dataModal?.widthModal}
+        centered={true}
+        maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+      />
+      <Layout.Header className="container__full--header">
+        <div className="container-1200">
+          <div className="container-1200__header">
+            <div className="header__navigate">
+              <div className="navigate__item--logo">
+                <img src={Logo} alt="" security="" className="logo__element" />
               </div>
-            </Col>
-          </Row>
-        ) : null}
-
-        <Row align="middle">
-          <Col xs={24} lg={24}>
-            <div className={`componentHeader__top--navigation`}>
-              <div className="container-1440">
-                <Row justify="start" align="middle">
-                  {
-                    isMobile ? (
-                      <Col lg={3} xs={7} style={{ "lineHeight": "30px" }}>
-                        <Button type="text" size="large" icon={changeIcon ? <MenuFoldOutlined style={{ "fontSize": "30px", "color": "#213362" }} /> : <MenuUnfoldOutlined style={{ "fontSize": "30px", "color": "#213362" }} />} onClick={handleClickIcon} />
-                      </Col>
-                    ) : null
-                  }
-                  <Col lg={3} xs={17}>
-                    <Link to="/">
-                      <div className="componentHeader__top--logo">
-                        <OImage className="brand-logo" src={Logo} alt="Logo Olatravel" preview={false} />
-                      </div>
-                    </Link>
-                  </Col>
-                  {/* {
-                    isMobile?(
-                      <Col lg={3} style={{"lineHeight":"30px"}}>
-                      <Button type="text" size="large" icon={<ShoppingCartOutlined style={{"fontSize":"30px","color":"#213362"}} />}/>
-                      </Col>
-                    ):null
-                  } */}
-                  {isDesktop ? (
-                    <Col span={21}>
-                      <div className="componentHeader__top--menu">
-                        <Menu onClick={handleSelectItem} selectedKeys={[activeMenu]} mode="horizontal">
-                          <Menu.Item key="home">
-                            <Link to="/">
-                              <span className="componentHeader__top--link">Trang Chủ</span>
-                            </Link>
-                          </Menu.Item>
-                          <Menu.Item key="promotion">
-                            <Link to="/promotion">
-                              <span className="componentHeader__top--link">Khuyến Mãi</span>
-                            </Link>
-                          </Menu.Item>
-                          <Menu.Item key="news">
-                            <Link to="/news">
-                              <span className="componentHeader__top--link">Tin Tức</span>
-                            </Link>
-                          </Menu.Item>
-                          <Menu.Item key="partner">
-                            <Link to="/partner">
-                              <span className="componentHeader__top--link">Đối Tác</span>
-                            </Link>
-                          </Menu.Item>
-                          <Menu.Item key="about">
-                            <Link to="/about">
-                              <span className="componentHeader__top--link">Liên Hệ</span>
-                            </Link>
-                          </Menu.Item>
-                          {/* <Menu.Item key="login" className="disable--boder">
-                            <Link to="/login">
-                              <button className='btn bold'>
-                                <UserOutlined className='custom--svg' />
-                                <span className='bold'>Đăng Nhập</span>
-                              </button>
-                            </Link>
-                          </Menu.Item> */}
-                        </Menu>
-                        <SubMenuUser dataUser={{
-                          roles: 'admin'
-                        }} />
-                      </div>
-                    </Col>
-                  ) : null}
-                </Row>
+              <div className="navigate__item--menu">
+                <ul>
+                  <li>
+                    <a href=".">
+                      <span>Trang chủ</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span>Khuyến mãi</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span>Cẩm nang du lịch</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <span>Hợp tác với chúng tôi</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className={`navigate__item--right ${showPopup ? 'showPopup' : ' '}`}>
+                <ul>
+                  <li>
+                    <p>
+                      <IconCart className="icon--menu" />
+                      {notification > 0 && (
+                        <div className="count-cart-item">
+                          <span>1</span>
+                        </div>
+                      )}
+                    </p>
+                  </li>
+                  <li>
+                    <p>
+                      <IconBell className="icon--menu" />
+                    </p>
+                  </li>
+                  <li onClick={handleClickUser}>
+                    <p>
+                      <IconUser className="icon--menu" />
+                      <IconDown className="icon--menu" />
+                    </p>
+                  </li>
+                </ul>
+                <PopupLogin activeModal={handleActiveModal} />
               </div>
             </div>
-          </Col>
-        </Row>
-      </div>
+          </div>
+        </div>
+      </Layout.Header>
     </React.Fragment>
   );
 };
