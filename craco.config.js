@@ -5,7 +5,6 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const CleanCSSPlugin = require('less-plugin-clean-css');
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin');
 const WebpackBar = require('webpackbar');
-const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const globImporter = require('node-sass-glob-importer');
@@ -44,6 +43,7 @@ module.exports = {
         extensions: ['.js', '.jsx', '.less', '.tsx', '.json', '.css', '.scss', '.sass'],
         modules: [pathJoin('./src'), 'node_modules'],
       },
+      devtool: 'source-map',
       module: {
         rules: [
           {
@@ -56,11 +56,42 @@ module.exports = {
                 loader: 'css-loader',
               },
               {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    plugins: function () {
+                      return [
+                        require('autoprefixer')
+                      ];
+                    },
+                    parser: "postcss-js",
+                  },
+                  execute: true,
+                  sourceMap: true,
+                  implementation: require.resolve("postcss")
+                }
+              },
+              {
                 loader: 'sass-loader',
                 options: {
                   sassOptions: {
                     importer: globImporter(),
                   },
+                },
+              }
+            ],
+          },
+          {
+            test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            use: [
+              {
+                loader: 'babel-loader',
+              },
+              {
+                loader: '@svgr/webpack',
+                options: {
+                  babel: false,
+                  icon: true,
                 },
               },
             ],
@@ -73,13 +104,12 @@ module.exports = {
                 loader: 'url-loader',
                 options: {
                   fallback: 'file-loader',
-                  limit: 8192,
+                  limit: false,
                   generator: content => svgToMiniDataURI(content.toString()),
                   name: "[path][name].[ext]",
                   useRelativePath: true,
                 },
               },
-              { loader: '@svgr/webpack', options: { icon: true,}}
             ],
             type: 'javascript/auto',
           },
@@ -116,38 +146,46 @@ module.exports = {
       },
       //Extract common module
       optimization: {
-        namedModules: false,
-        namedChunks: false,
+        namedModules: true,
+        namedChunks: true,
         nodeEnv: 'production',
         flagIncludedChunks: true,
-        occurrenceOrder: true,
-        sideEffects: true,
+        occurrenceOrder: false,
+        // sideEffects: false,
         usedExports: true,
-        concatenateModules: true,
+        concatenateModules: false,
         minimize: true,
         runtimeChunk: true,
+        removeAvailableModules: true,
+        removeEmptyChunks: true,
+        mergeDuplicateChunks: true,
         splitChunks: {
+          chunks: 'async',
+          minSize: 20000,
+          minRemainingSize: 0,
+          minChunks: 1,
+          maxAsyncRequests: 30,
+          maxInitialRequests: 30,
+          enforceSizeThreshold: 50000,
           cacheGroups: {
+            default: false,
             commons: {
+              name: 'commons',
               chunks: 'all',
+              priority: 2,
               minChunks: 2,
               maxInitialRequests: 5,
               minSize: 0,
             },
-            vendor: {
+            vendors: {
               test: /node_modules/,
               chunks: 'all',
-              name: 'vendor',
+              name: 'vendors',
               priority: 10,
               enforce: true,
             },
-            minSize: 30000,
-            maxAsyncRequests: 5,
           },
         },
-        removeAvailableModules: true,
-        removeEmptyChunks: true,
-        mergeDuplicateChunks: true,
       },
     }, { env, paths }) => { return webpackConfig; },
     plugins: [
@@ -182,7 +220,7 @@ module.exports = {
             hashDigest: 'hex',
             hashDigestLength: 20,
           }),
-          new webpack.optimize.ModuleConcatenationPlugin(),
+          // new webpack.optimize.ModuleConcatenationPlugin(),
           new TerserPlugin({
             test: /\.js(\?.*)?$/i,
             parallel: true,
@@ -197,6 +235,7 @@ module.exports = {
             },
           }),
           new CompressionWebpackPlugin({
+            filename: "[path][base].gz",
             algorithm: 'gzip',
             test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
             threshold: 1024,
