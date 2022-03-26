@@ -2,7 +2,10 @@
     "presets": [
         ["@babel/preset-env",{
             "loose": true,
-            "shippedProposals": true
+            "shippedProposals": true,
+            "targets": {
+              "esmodules": true
+            }
         }],
         ["@babel/preset-react", {
             "runtime": "automatic"
