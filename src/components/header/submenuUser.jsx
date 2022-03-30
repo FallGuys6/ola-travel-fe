@@ -1,29 +1,62 @@
 import React from 'react';
 
+
+const yourInformation = [
+    {
+        display: 'Tài Khoản',
+        path: '#'
+    }, {
+        display: 'Yêu Thích',
+        path: '#'
+    }, {
+        display: 'Tour đã đặt',
+        path: '#'
+    }
+]
+
+const manage = [
+    {
+        display: 'Danh Sách Công Ty',
+        path: '#'
+    }, {
+        display: 'Danh Sách Tour',
+        path: '#'
+    }, {
+        display: 'Đăng Xuất',
+        path: '#'
+    }
+]
+
 function SubmenuUser(props) {
 
     return (
         <div className='submenu'>
             <div className="submenu__user--triangle"></div>
             <div className='submenu__user'>
-                <div className="submenu__user--inner">
-                    <div className="submenu__user--your-information">
-                        <h3>THÔNG TIN CỦA BẠN</h3>
-                        <span className='submenu__user--item'>Tài Khoản</span>
-                        <span className='submenu__user--item'>Yêu Thích</span>
-                        <span className='submenu__user--item'>Tour đã đặt</span>
-                        <h3>QUẢN LÝ</h3>
-                        <span className='submenu__user--item'>Danh Sách Công Ty</span>
-                        <span className='submenu__user--item'>Danh Sách Tour</span>
-                        <span className='submenu__user--item'>Đăng Xuất</span>
-                    </div>
+                <div className="submenu__user--box">
+                    <h3>THÔNG TIN CỦA BẠN</h3>
+                    {
+                        yourInformation.map((e) => (
+                            <a href={e.path} className="submenu__user--item">
+                                {e.display}
+                            </a>
+                        ))
+                    }
+                </div>
+                <div className="submenu__user--box">
+                    <h3>QUẢN LÝ</h3>
+                    {
+                        manage.map((e) => (
+                            <a href={e.path} className="submenu__user--item">
+                                {e.display}
+                            </a>
+                        ))
+                    }
                 </div>
             </div>
         </div>
     );
 };
-
-
 
 export default SubmenuUser;
 

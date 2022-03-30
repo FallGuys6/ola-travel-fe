@@ -46,6 +46,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
   const [showModal, setShowModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
   const [showInformation, setShowInformation] = useState(false);
+  const [iconRotate, setIconRotate] = useState(false);
   const [user, setUser] = useState('Tú');
 
   function handleClickUser() {
@@ -68,7 +69,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
 
   function handleClickAvatar() {
     setShowInformation(!showInformation);
-    console.log(showInformation)
+    setIconRotate(!iconRotate);
   }
 
   return (
@@ -143,12 +144,15 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
                     <p>
                       <Avatar size={20} src={AvatarUser} icon={<UserOutlined />} />
                       <span className="nameUser">{user}</span>
-                      <Icon component={IconRight} className="icon--menu" />
+                      <Icon
+                        component={IconDown}
+                        className={`icon--menu ${iconRotate ? 'iconRotate--90' : 'iconRotate-0'}`}
+                      />
                     </p>
                   </li>
                 </ul>
                 <PopupLogin activeModal={handleActiveModal} />
-                <div className={`submenu-user ${showInformation ? 'showInformation' : ' '}`}>
+                <div className={`submenu-user ${showInformation ? 'showInformation' : ''}`}>
                   <SubmenuUser />
                 </div>
               </div>
