@@ -201,10 +201,6 @@
     object-fit: contain;
 }
 
-.rotate-90 {
-    transform: rotate(-90deg);
-}
-
 .submenu-user {
     display: none;
     &.showInformation {
@@ -217,4 +213,14 @@ li>p>.nameUser {
     font-weight: bold;
     font-size: 14px;
     padding: 0 5px;
+}
+
+.iconRotate--90 {
+    transition: 0.2s linear;
+    transform: rotate(-90deg);
+}
+
+.iconRotate-0 {
+    transition: 0.2s linear;
+    transform: rotate(0deg);
 }
