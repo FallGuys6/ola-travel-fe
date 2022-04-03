@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Form, Input, Button, Modal } from 'antd';
+import Icon from '@ant-design/icons';
 import { ReactComponent as IconClose } from '@assets/images/icon-close-modal.svg';
 import CustomButtonFacebook from '../custom/customButtonFacebook';
 import CustomButtonGoogle from '../custom/customButtonGoogle';
@@ -208,8 +209,9 @@ const FromForgotPassword = props => {
 };
 
 const OlaModal = props => {
-  const [selectFrom, setSelectFrom] = useState();
-  const [changeFrom , setChangeFrom] = useState();
+  const [selectFrom, setSelectFrom] = useState('');
+  const [changeFrom , setChangeFrom] = useState('');
+
   function checkFromOk(value) {
     if (value) {
       props.handleOk();
@@ -249,7 +251,7 @@ const OlaModal = props => {
         visible={props.visible}
         onCancel={handleClickCancel}
         onOk={props.handleOk}
-        closeIcon={<IconClose className="modal__icon-close" />}
+        closeIcon={<Icon component={IconClose} className="modal__icon-close" />}
       >
         {/* <FromLogin /> */}
         {selectFrom === 'login' && <FromLogin submitOk={checkFromOk} activeFrom={handleSelectFrom} />}

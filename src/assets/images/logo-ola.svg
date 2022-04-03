@@ -1,7 +1,5 @@
 <svg width="152" height="43" viewBox="0 0 152 43" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="logo-ola">
 <path id="logo-svg" d="M152 0H0V42H152V0Z" fill="url(#pattern0)"/>
-</g>
 <defs>
 <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
 <use xlink:href="#image0_111_241" transform="scale(0.00108225 0.00389105)"/>

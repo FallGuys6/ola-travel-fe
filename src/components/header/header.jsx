@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Layout } from 'antd';
+import Icon from '@ant-design/icons';
 import OlaModal from '@components/common/modal/modalFrom';
 import Logo from '@assets/images/logo-ola.jpg';
 import { ReactComponent as IconCart } from '@assets/images/icon-cart.svg';
@@ -78,7 +79,7 @@ const HeaderComponent = ({infoUser, infoBusiness}) => {
           <div className="container-1200__header">
             <div className="header__navigate">
               <div className="navigate__item--logo">
-                <img src={Logo} alt="" security="" className="logo__element" />
+                <img src={Logo} alt="Olatravel-logo" className="logo__element" />
               </div>
               <div className="navigate__item--menu">
                 <ul>
@@ -108,7 +109,7 @@ const HeaderComponent = ({infoUser, infoBusiness}) => {
                 <ul>
                   <li>
                     <p>
-                      <IconCart className="icon--menu" />
+                    <Icon component={IconCart} className="icon--menu"/>
                       {notification > 0 && (
                         <div className="count-cart-item">
                           <span>1</span>
@@ -118,13 +119,13 @@ const HeaderComponent = ({infoUser, infoBusiness}) => {
                   </li>
                   <li>
                     <p>
-                      <IconBell className="icon--menu" />
+                      <Icon component={IconBell} className="icon--menu"/>
                     </p>
                   </li>
                   <li onClick={handleClickUser}>
                     <p>
-                      <IconUser className="icon--menu" />
-                      <IconDown className="icon--menu" />
+                      <Icon component={IconUser} className="icon--menu"/>
+                      <Icon component={IconDown} className="icon--menu"/>
                     </p>
                   </li>
                 </ul>

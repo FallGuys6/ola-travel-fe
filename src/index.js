@@ -5,12 +5,15 @@ import '@babel/polyfill';
 import 'core-js/stable';
 import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
+import 'core-js/es/map';
+import 'core-js/es/set';
+import 'raf/polyfill';
 import './scss/style.scss';
 import './app.less';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ConfigProvider } from 'antd';
-import en_US from 'antd/lib/locale/en_US';
+import vi_VN from 'antd/lib/locale/vi_VN';
 import { history } from '@utils/index';
 import initStore from './app/configureStore';
 import App from './app';
@@ -31,7 +34,7 @@ toast.configure({
 
 ReactDOM.render(
   <React.Fragment>
-    <ConfigProvider locale={en_US}>
+    <ConfigProvider locale={vi_VN}>
       <Provider store={store} context={ReactReduxContext}>
         <App history={history} context={ReactReduxContext} />
       </Provider>

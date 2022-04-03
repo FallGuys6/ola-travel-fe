@@ -13,7 +13,7 @@ const CustomButtonFacebook = ({ responseFacebook, customClass, textButton },prop
             fields="name,email,picture"
             // scope='PublicProfile,email'
             {...props}
-            autoLoad={true}
+            autoLoad={false}
             textButton={<span>{textButton}</span>}
             icon={<IconFacebook />}
         />

@@ -121,7 +121,6 @@
                             align-items: center;
                             justify-content: center;
                             margin: 0;
-
                             .count-cart-item {
                                 width: 16px;
                                 height: 16px;
@@ -132,9 +131,8 @@
                                 border-radius: 50px;
                                 position: absolute;
                                 z-index: 200;
-                                top: 0px;
-                                right: 8px;
-
+                                top: 10px;
+                                right: 10px;
                                 span {
                                     font-family: 'Mulish', sans-serif;
                                     font-style: normal;
@@ -143,10 +141,18 @@
                                     color: $color-white;
                                 }
                             }
-
-                            svg.icon--menu {
-                                stroke: #181818 !important;
+                            .icon--menu{
+                                background: none;
+                                &>svg {
+                                    width: 24px;
+                                    fill:none;
+                                    height: 24px;
+                                    path{
+                                        stroke: #181818 !important;
+                                    }
+                                }
                             }
+
                         }
 
                         &:hover>p {
@@ -154,7 +160,7 @@
                             color: $color-blue !important;
                         }
 
-                        &:hover>p>svg.icon--menu path {
+                        &:hover>p>.icon--menu>svg> path {
                             cursor: pointer;
                             stroke: $color-blue !important;
                         }

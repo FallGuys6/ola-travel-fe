@@ -1,0 +1,323 @@
+.container__full--boxSearch {
+    width: 100%;
+    height: auto;
+    max-height: 170px;
+    position: absolute !important;
+    background-color: none !important;
+    z-index: 100;
+    top: 57%;
+    transform: translateY(-57%);
+    @include animate-css(fadeIn);
+
+    .container-1200__boxSearch {
+        padding: 7px 0px;
+        width: 100%;
+        background-color: $color-white;
+        height: calc(167px - 7px * 2) !important;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+
+        .ant-tabs {
+            .ant-tabs-nav {
+                margin: 0 !important;
+
+                // &::before{
+                //     border-bottom: 1px solid #B6B3B3 !important;
+                // }
+                .ant-tabs-nav-wrap {
+                    .ant-tabs-nav-list {
+                        .ant-tabs-tab {
+                            .ant-tabs-tab-btn {
+                                .anticon{
+                                    display: inline-block !important;
+                                    margin: 0 !important;
+                                    svg {
+                                        fill: none;
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                }
+                                span {
+                                    margin: 5px 5px !important;
+                                    font-family: 'Mulish',
+                                    sans-serif !important;
+                                    font-style: normal;
+                                    font-weight: 700;
+                                    font-size: 16px !important;
+                                    line-height: 16px;
+                                    color: #181818;
+                                }
+                            }
+
+                            &.ant-tabs-tab-active {
+                                span {
+                                    color: $color-blue !important;
+                                    font-weight: 700 !important;
+
+                                    svg>path {
+                                        stroke: $color-blue !important;
+                                        stroke-width: 1.5 !important;
+                                    }
+                                }
+
+                            }
+                        }
+
+                        .ant-tabs-ink-bar {
+                            background-color: $color-blue !important;
+                        }
+                    }
+                }
+            }
+
+            .ant-tabs-content-holder {
+                padding: 7px 20px !important;
+
+                .ant-tabs-content {
+                    .ant-tabs-tabpane {
+                        .ant-form-inline {
+                            .ant-form-item {
+                                justify-content: space-between;
+                                flex-direction: column;
+                                position: relative;
+
+                                &.separate::after {
+                                    content: '';
+                                    position: absolute;
+                                    top: 50%;
+                                    right: 0;
+                                    transform: translateY(-50%);
+                                    width: 1px;
+                                    background: #f0f0f0;
+                                    height: 36px;
+                                }
+
+                                &.layout-label {
+
+                                    .ant-form-item-label {
+                                        text-align: left !important;
+                                        padding-left: 11px !important;
+
+                                        .ant-form-item-no-colon {
+                                            display: flex;
+                                            // flex-wrap: nowrap;
+                                            flex-direction: row;
+                                            justify-content: space-between;
+                                            span {
+                                                width: 100%;
+                                                font-family: 'Mulish', sans-serif !important;
+                                                font-weight: 600 !important;
+                                                font-size: 14px !important;
+                                                line-height: 16px;
+                                                color: #131313 !important;
+                                                &:last-child{
+                                                   padding-left: 80px; 
+                                                }
+                                            }
+
+                                        }
+                                    }
+                                }
+
+                                .ant-form-item-label {
+                                    text-align: left !important;
+                                    padding-left: 11px !important;
+
+                                    .ant-form-item-no-colon {
+                                        font-family: 'Mulish', sans-serif !important;
+                                        font-weight: 500 !important;
+                                        font-size: 14px !important;
+                                        line-height: 16px;
+                                        color: #131313 !important;
+                                    }
+                                }
+
+                                .ant-form-item-control {
+                                    .ant-form-item-control-input {
+                                        .ant-form-item-control-input-content {
+                                            .ant-input {
+                                                &::placeholder {
+                                                    font-family: 'Mulish', sans-serif !important;
+                                                    color: #838383 !important;
+                                                    font-style: normal;
+                                                    font-weight: 700;
+                                                    font-size: 19px;
+                                                    line-height: 24px;
+                                                }
+
+                                            }
+                                            .ant-picker{
+                                                .ant-picker-input{
+                                                    input{
+                                                        &::placeholder {
+                                                            font-family: 'Mulish', sans-serif !important;
+                                                            color: #838383 !important;
+                                                            font-style: normal !important;
+                                                            font-weight: 700 !important;
+                                                            font-size: 19px !important;
+                                                            line-height: 24px !important;
+                                                        }
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            .button-search{
+                                                
+                                                .anticon{
+                                                    svg{
+                                                        fill: none !important;
+                                                        width: 35px;
+                                                        height: 35px;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                            .TimeTotal {
+                                width: 100px;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                .setDay {
+                                    width: 35px;
+                                    height: 35px;
+                                    border-radius: 50%;
+                                    background-color: #ffffff;
+                                    border: 0.3px solid #e3e7eb;
+                                    box-sizing: border-box;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    p {
+                                        margin: 0 !important;
+                                        font-family: 'Mulish', sans-serif !important;
+                                        font-style: normal;
+                                        font-weight: 600;
+                                        font-size: 14px;
+                                        line-height: 15px;
+                                        color: #1a202c;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// style for dropdown
+.ant-dropdown{
+    .dropdown-select{
+        overflow: hidden;
+        overflow-y: scroll;
+        width: calc(320px - 10px * 2);
+        padding: 10px 10px;
+        height: 283px;
+        background-color: #ffffff;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 12px 0px 0px 12px;
+        .dropdown-select__item{
+            width: 100%;
+            height: auto;
+            .dropdown-select__item--title{
+                padding: 5px 10px;
+                margin-bottom: 5px;
+                h6{
+                    font-family: 'Mulish', sans-serif !important;
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: #131313;
+                }
+            }
+            .dropdown-select__item--content{
+                width: 100%;
+                height: 40px;
+                // background-color: #EDF2F7;
+                margin-bottom: 10px;
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                padding: 5px;
+                &:hover{
+                    background-color: #EDF2F7;
+                    cursor: pointer;
+                }
+                .logo{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 8px;
+                    width: 28px;
+                    height: 28px;
+                    background-color: #EDF2F7;
+                    border-radius: 6px;
+                    .anticon{
+                        svg{
+                            width: 24px !important;
+                            height: 24px !important;
+                            fill: none !important;
+                        }
+                    }
+                }
+                .location{
+                    padding-left: 10px;
+                    width: 180px;
+                    p{
+                        margin: 0px;
+                        padding: 4px;
+                        font-family: 'Mulish', sans-serif !important;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 11px;
+                        color: #1A202C;
+                    }
+                    span{
+                        font-family: 'Mulish', sans-serif !important;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 10px;
+                        color: #718096;
+                        padding: 4px;
+                    }
+                }
+                .totalTours{
+                    // width: 50px;
+                    // padding: 10px 5px;
+                    display: flex;
+                    justify-content: center;
+                    span{
+                        font-family: 'Mulish', sans-serif !important;
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 13px;
+                        color: #718096;
+                    }
+                    .anticon{
+                        margin-left: 5px;
+                        svg{
+                            fill: none !important;
+                            width: 14px !important;
+                            height: 14px !important;
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+}
