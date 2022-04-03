@@ -1,8 +1,9 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import { Helmet } from 'react-helmet';
 import LayoutAllPages from '@layouts/index';
 import VideoComponent from '@components/videos/videos';
-
+import BoxSearch from '@components/boxSearch/boxSearch';
+import { useViewport } from '@hooks/customHooks';
 const TitleAndContent = props => {
   return (
     <React.Fragment>
@@ -19,7 +20,14 @@ const TitleAndContent = props => {
 };
 
 const Home = () => {
-  const arrayElement = useMemo(()=>[{ element: TitleAndContent }, { element: VideoComponent }],[]);
+  const viewPort = useViewport();
+  const arrayElement = useMemo(() => {
+    let array = [{ element: TitleAndContent }, { element: VideoComponent }];
+    if (viewPort.width >= 992) {
+      array.push({ element: BoxSearch });
+    }
+    return array;
+  }, [viewPort.width]);
   return (
     <React.Fragment>
       <Helmet>

@@ -2,5 +2,5 @@ import { lazy } from "react";
 export default {
     path:'/',
     exact:true,
-    component: lazy(() => import('.'))
+    component: lazy(() => import('./index'))
 }
