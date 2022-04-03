@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Layout } from 'antd';
-import Icon from '@ant-design/icons';
+import { Layout, Avatar } from 'antd';
+import Icon, { UserOutlined } from '@ant-design/icons';
 import OlaModal from '@components/common/modal/modalFrom';
 import Logo from '@assets/images/logo-ola.jpg';
 import { ReactComponent as IconCart } from '@assets/images/icon-cart.svg';
 import { ReactComponent as IconBell } from '@assets/images/icon-bell.svg';
 import { ReactComponent as IconUser } from '@assets/images/icon-user.svg';
 import { ReactComponent as IconDown } from '@assets/images/icon-down.svg';
+import { ReactComponent as IconRight } from '@assets/images/icon-right.svg';
+import SubmenuUser from './submenuUser';
+import AvatarUser from '@assets/images/avatar.jpg';
 
 const PopupLogin = props => {
   function handleSelectModalLogin() {
@@ -26,6 +29,7 @@ const PopupLogin = props => {
       widthModal: 410,
     });
   }
+
   return (
     <React.Fragment>
       <div className="popup--login">
@@ -36,11 +40,14 @@ const PopupLogin = props => {
   );
 };
 
-const HeaderComponent = ({infoUser, infoBusiness}) => {
+const HeaderComponent = ({ infoUser, infoBusiness }) => {
   const [notification, setNotification] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [dataModal, setDataModal] = useState({});
+  const [showInformation, setShowInformation] = useState(false);
+  const [iconRotate, setIconRotate] = useState(false);
+  const [user, setUser] = useState('Tú');
 
   function handleClickUser() {
     setShowPopup(!showPopup);
@@ -60,9 +67,14 @@ const HeaderComponent = ({infoUser, infoBusiness}) => {
     setShowModal(false);
   }
 
+  function handleClickAvatar() {
+    setShowInformation(!showInformation);
+    setIconRotate(!iconRotate);
+  }
+
   return (
     <React.Fragment>
-    <OlaModal
+      <OlaModal
         titleModal={dataModal?.title}
         selectModal={dataModal?.key}
         visible={showModal}
@@ -122,20 +134,33 @@ const HeaderComponent = ({infoUser, infoBusiness}) => {
                       <Icon component={IconBell} className="icon--menu"/>
                     </p>
                   </li>
-                  <li onClick={handleClickUser}>
+                  {/* <li onClick={handleClickUser}>
                     <p>
                       <Icon component={IconUser} className="icon--menu"/>
                       <Icon component={IconDown} className="icon--menu"/>
                     </p>
+                  </li> */}
+                  <li onClick={handleClickAvatar}>
+                    <p>
+                      <Avatar size={20} src={AvatarUser} icon={<UserOutlined />} />
+                      <span className="nameUser">{user}</span>
+                      <Icon
+                        component={IconDown}
+                        className={`icon--menu ${iconRotate ? 'iconRotate--90' : 'iconRotate-0'}`}
+                      />
+                    </p>
                   </li>
                 </ul>
                 <PopupLogin activeModal={handleActiveModal} />
+                <div className={`submenu-user ${showInformation ? 'showInformation' : ''}`}>
+                  <SubmenuUser />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </Layout.Header>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
