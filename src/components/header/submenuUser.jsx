@@ -21,9 +21,6 @@ const manage = [
     }, {
         display: 'Danh Sách Tour',
         path: '#'
-    }, {
-        display: 'Đăng Xuất',
-        path: '#'
     }
 ]
 
@@ -36,8 +33,8 @@ function SubmenuUser(props) {
                 <div className="submenu__user--box">
                     <h3>THÔNG TIN CỦA BẠN</h3>
                     {
-                        yourInformation.map((e) => (
-                            <a href={e.path} className="submenu__user--item">
+                        yourInformation.map((e, i) => (
+                            <a href={e.path} key={i} className="submenu__user--item">
                                 {e.display}
                             </a>
                         ))
@@ -46,12 +43,15 @@ function SubmenuUser(props) {
                 <div className="submenu__user--box">
                     <h3>QUẢN LÝ</h3>
                     {
-                        manage.map((e) => (
-                            <a href={e.path} className="submenu__user--item">
+                        manage.map((e, i) => (
+                            <a href={e.path} key={i} className="submenu__user--item">
                                 {e.display}
                             </a>
                         ))
                     }
+                </div>
+                <div className="submenu__user--box">
+                    <a href="#" className="submenu__user--item">Đăng xuất</a>
                 </div>
             </div>
         </div>
