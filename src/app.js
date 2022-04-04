@@ -7,13 +7,13 @@ import { Spin } from 'antd';
 
 
 function App({ history, context }) {
-
+  const reverseArrayRouters = arrayRouters.reverse();
 
   return (
     <React.Fragment>
       <ConnectedRouter history={history} context={context}>
         <Switch>
-          {arrayRouters.map(({ component: Component, ...rest }, index) => {
+          {reverseArrayRouters.map(({ component: Component, ...rest }, index) => {
             return (
               <Route
                 key={index}
