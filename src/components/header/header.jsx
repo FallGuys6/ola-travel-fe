@@ -121,7 +121,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
                 <ul>
                   <li>
                     <p>
-                    <Icon component={IconCart} className="icon--menu"/>
+                      <Icon component={IconCart} className="icon--menu" />
                       {notification > 0 && (
                         <div className="count-cart-item">
                           <span>1</span>
@@ -131,7 +131,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
                   </li>
                   <li>
                     <p>
-                      <Icon component={IconBell} className="icon--menu"/>
+                      <Icon component={IconBell} className="icon--menu" />
                     </p>
                   </li>
                   {/* <li onClick={handleClickUser}>
