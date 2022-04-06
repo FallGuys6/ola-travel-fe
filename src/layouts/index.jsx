@@ -14,12 +14,12 @@ const LayoutAllPages = ({ childrenComponent = [], className = 'override--layout'
         <Layout.Content>
           {childrenComponent
             ? childrenComponent.map(({ element: Element }, index) => {
-                return (
-                  <div key={index}>
-                    <Element />
-                  </div>
-                );
-              })
+              return (
+                <div key={index}>
+                  <Element />
+                </div>
+              );
+            })
             : null}
         </Layout.Content>
         <Layout.Footer>

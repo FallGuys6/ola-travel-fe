@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import LayoutAllPages from '@layouts/index';
 import VideoComponent from '@components/videos/videos';
 import BoxSearch from '@components/boxSearch/boxSearch';
+import slideMultipleItems from '@components/slideMultipleItems/slideMultipleItems';
 import { useViewport } from '@hooks/customHooks';
 const TitleAndContent = props => {
   return (
@@ -22,7 +23,7 @@ const TitleAndContent = props => {
 const Home = () => {
   const viewPort = useViewport();
   const arrayElement = useMemo(() => {
-    let array = [{ element: TitleAndContent }, { element: VideoComponent }];
+    let array = [{ element: TitleAndContent }, { element: VideoComponent }, { element: slideMultipleItems }];
     if (viewPort.width >= 992) {
       array.push({ element: BoxSearch });
     }
