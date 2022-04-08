@@ -42,18 +42,18 @@ export default class slideMultipleItems extends Component {
         };
         return (
             <Row>
-                <div className="slideMultipleItems container-1200">
-                    <Slider {...settings}>
-                        {
-                            slideImage.map((e, i) => (
-                                <a href={e.linkImage} key={i} className="slideMultipleItems__image">
-                                    <img src={e.urlImage} alt="" />
-                                </a>
-                            ))
-                        }
-                    </Slider>
-                </div>
                 <div className="container-1200">
+                    <div className="slideMultipleItems">
+                        <Slider {...settings}>
+                            {
+                                slideImage.map((e, i) => (
+                                    <a href={e.linkImage} key={i} className="slideMultipleItems__image">
+                                        <img src={e.urlImage} alt="" />
+                                    </a>
+                                ))
+                            }
+                        </Slider>
+                    </div>
                     <Support />
                 </div>
             </Row>
