@@ -22,6 +22,12 @@ const slideImage = [
     }, {
         urlImage: "https://source.unsplash.com/random",
         linkImage: "#"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#"
     }
 ]
 
@@ -29,11 +35,10 @@ export default class slideMultipleItems extends Component {
     render() {
         const settings = {
             dots: true,
-            infinite: false,
+            infinite: true,
             speed: 500,
             slidesToShow: 2.5,
-            slidesToScroll: 2.5,
-            initialSlide: 0
+            slidesToScroll: 2.5
         };
         return (
             <Row>
