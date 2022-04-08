@@ -11,7 +11,7 @@ const LayoutAllPages = ({ childrenComponent = [], className = 'override--layout'
     <React.Fragment>
       <Layout style={typeof window === 'undefined' ? { display: 'none' } : { className }}>
         {viewPort.width >= 992 && <HeaderComponent />}
-        <Layout.Content>
+        <Layout.Content style={{ backgroundColor: "#fff" }}>
           {childrenComponent
             ? childrenComponent.map(({ element: Element }, index) => {
               return (
@@ -26,7 +26,7 @@ const LayoutAllPages = ({ childrenComponent = [], className = 'override--layout'
           <FooterComponent />
         </Layout.Footer>
       </Layout>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
