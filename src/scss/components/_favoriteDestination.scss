@@ -1,0 +1,98 @@
+.favorite-destination {
+    height: 600px;
+
+    .destination {
+        &-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        &-slug {
+            font-size: 14px;
+            color: #4a5568;
+        }
+    }
+
+    &__content {
+        position: relative;
+        margin-top: 50px;
+
+        .balloon {
+            border-radius: 100%;
+            background: red;
+            overflow: hidden;
+            position: absolute;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                position: relative;
+            }
+
+            p {
+                color: white;
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 0;
+                z-index: 99;
+                font-size: 14px;
+            }
+        }
+
+        .big {
+            width: 266px;
+            height: 266px;
+        }
+
+        .medium {
+            width: 163px;
+            height: 163px;
+        }
+
+        .small {
+            width: 133px;
+            height: 133px;
+        }
+        .one {
+            top: 120px;
+            left: 0;
+        }
+        .two {
+            top: 0;
+            left: 270px;
+        }
+        .three {
+            top: 180px;
+            left: 350px;
+        }
+        .four {
+            top: 350px;
+            left: 270px;
+        }
+        .five {
+            top: 0;
+            right: 400px;
+        }
+        .six {
+            top: 90px;
+            right: 230px;
+        }
+        .seven {
+            top: 350px;
+            left: 500px;
+        }
+        .eight {
+            top: 280px;
+            right: 300px;
+        }
+        .nine {
+            top: 0;
+            right: 10px;
+        }
+        .ten {
+            top: 250px;
+            right: 0;
+        }
+    }
+}
