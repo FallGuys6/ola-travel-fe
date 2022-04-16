@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Layout, Avatar } from 'antd';
 import Icon, { UserOutlined } from '@ant-design/icons';
 import OlaModal from '@components/common/modal/modalFrom';
@@ -72,6 +72,22 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
     setIconRotate(!iconRotate);
   }
 
+  const headerRef = useRef(null);
+
+  useEffect(() => {
+    const shrinkHeader = () => {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        headerRef.current.classList.add('shrink');
+      } else {
+        headerRef.current.classList.remove('shrink');
+      }
+    }
+    window.addEventListener('scroll', shrinkHeader)
+    return () => {
+      window.removeEventListener('scroll', shrinkHeader)
+    };
+  }, []);
+
   return (
     <React.Fragment>
       <OlaModal
@@ -86,7 +102,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
         centered={true}
         maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
       />
-      <Layout.Header className="container__full--header">
+      <Layout.Header className="container__full--header" ref={headerRef}>
         <div className="container-1200">
           <div className="container-1200__header">
             <div className="header__navigate">
