@@ -1,5 +1,29 @@
 import React from 'react';
 
+const imageInspiration = [
+    {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#",
+        name: "Ola Travel"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#",
+        name: "Ola Travel"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#",
+        name: "Ola Travel"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#",
+        name: "Ola Travel"
+    }, {
+        urlImage: "https://source.unsplash.com/random",
+        linkImage: "#",
+        name: "Ola Travel"
+    }
+]
+
 function InspirationForTravel(props) {
     return (
         <div className="container-1200">
@@ -9,26 +33,16 @@ function InspirationForTravel(props) {
                     <p className="slug">Bí quyết du lịch, những chuyến câu chuyện thú vị sau mỗi chyến đi đang chờ đón bạn</p>
                 </div>
                 <div className="images">
-                    <div className="image">
-                        <img src="https://source.unsplash.com/random" alt="" />
-                        <div className="image-title">Ola Travel</div>
-                    </div>
-                    <div className="image">
-                        <img src="https://source.unsplash.com/random" alt="" />
-                        <div className="image-title">Ola Travel</div>
-                    </div>
-                    <div className="image">
-                        <img src="https://source.unsplash.com/random" alt="" />
-                        <div className="image-title">Ola Travel</div>
-                    </div>
-                    <div className="image">
-                        <img src="https://source.unsplash.com/random" alt="" />
-                        <div className="image-title">Ola Travel</div>
-                    </div>
-                    <div className="image">
-                        <img src="https://source.unsplash.com/random" alt="" />
-                        <div className="image-title">Ola Travel</div>
-                    </div>
+
+                    {
+                        imageInspiration.map((e, i) => (
+                            <a href={e.linkImage} key={i} className="image">
+                                <img src={e.urlImage} alt="" />
+                                <div className="image-title">{e.name}</div>
+                            </a>
+                        ))
+                    }
+
                 </div>
                 <div className='seeAll'>
                     <a className='seeAll-text' href="#">Xem tất cả</a>
