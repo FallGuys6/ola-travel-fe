@@ -1,0 +1,42 @@
+.customersComment {
+    .title {
+        font-weight: bold;
+        font-size: 24px;
+        color: #1a202c;
+    }
+    .slug {
+        color: #4a5568;
+        font-size: 14px;
+    }
+
+    .customersComment_card {
+        color: #4a5568;
+        font-size: 13px;
+        margin-top: 50px;
+        padding-right: 50px;
+
+        .customersComment_inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .customersComment_info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .customersComment_infoUser {
+                margin-left: 10px;
+                line-height: 10px;
+                color: #251e1e;
+                font-size: 14px;
+                p {
+                    font-weight: bold;
+                }
+                span {
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+}
