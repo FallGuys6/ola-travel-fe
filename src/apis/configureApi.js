@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+import {getLocalStorage} from '@utils/helpers';
 const DEVELOPMENT_API_HOST = 'https://olatravel-api-dev.herokuapp.com/api';
 const PRODUCTION_API_HOST = 'https://olatravel-api.herokuapp.com/api';
-const API_LOCALHOST = 'http://ola-travel-be.dev.com/api';
+const API_LOCALHOST = 'https://ola-travel-be.dev.com/api';
 export const getBaseHost = () => {
   {/**get base host */}
   switch (process.env.NODE_ENV) {
@@ -22,9 +22,10 @@ const axiosInstance = axios.create({
   maxContentLength: 10000,
   maxBodyLength: 10000,
   headers: {
+    "Content-Type" : "application/json",
     Authorization: {
       toString: () => {
-        return `Bearer ${localStorage.getItem('token')}`;
+        return `Bearer ${getLocalStorage("token")??''}`;
       },
     },
   },

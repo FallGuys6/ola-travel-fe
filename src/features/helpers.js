@@ -10,7 +10,7 @@ const extractErrorMsg = (response) => {
         return message;
     }catch(error){
         console.error(error);
-        return 'API failed';
+        return 'API lỗi!';
     }
 }
 

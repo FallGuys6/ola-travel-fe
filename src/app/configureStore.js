@@ -11,7 +11,7 @@ export default function initStore(state={}){
     const store = configureStore(
         {
             reducer: rootReducer ,
-            preloadedState: getPreloadedState(state),
+            preloadedState: getPreloadedState(),
             middleware: (getDefaultMiddleware) =>  getDefaultMiddleware({
                 thunk: true,
                 serializableCheck: true,

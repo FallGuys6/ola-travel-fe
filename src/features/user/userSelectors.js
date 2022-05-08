@@ -1,0 +1,1 @@
+export const getInfoUser = state => state?.user?.info;

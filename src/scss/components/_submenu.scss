@@ -16,7 +16,8 @@
     .submenu__user {
         position: absolute;
         width: 200px;
-        height: 265px;
+        // height: 265px;
+        height: fit-content;
         background-color: $background-white;
         border-radius: 8px;
         overflow: auto;
@@ -35,7 +36,7 @@
         }
         .submenu__user--box {
             padding: 10px;
-            border-bottom: 0.4px solid #b6b3b3;
+            border-bottom: 0.3px solid #b6b3b3;
             h3 {
                 font-family: "Mulish";
                 font-style: normal;
@@ -56,6 +57,7 @@
                 padding: 0 10px;
                 border-radius: 6px;
                 cursor: pointer;
+                margin: 0 !important;
                 &:hover {
                     background-color: #edf2f7;
                     font-weight: 500;

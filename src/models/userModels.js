@@ -1,10 +1,11 @@
 class UserModels {
   constructor(data = {}) {
     this.id = data.id || '';
+    this.idUser= data.idUser || '';
     this.email = data.email || '';
     this.phone = data.phone || '';
     this.address = data.address || '';
-    this.avatarUrl = data.avatarUrl || '';
+    this.avatarUrl = data?.user_normals?.AvatarUrl || '';
     this.title = data.title || '';
     this.status = data.status || '';
     this.coupons= data.coupons || [];

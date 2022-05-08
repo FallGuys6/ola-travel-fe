@@ -1,21 +1,63 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Form, Input, Button, Modal } from 'antd';
 import Icon from '@ant-design/icons';
-import { ReactComponent as IconClose } from '@assets/images/icon-close-modal.svg';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomButtonFacebook from '../custom/customButtonFacebook';
 import CustomButtonGoogle from '../custom/customButtonGoogle';
 
+import { ReactComponent as IconClose } from '@assets/images/icon-close-modal.svg';
+import { loginAction, logoutAction } from '@features/auth/authActions';
+import { getInfoUser } from '@features/user/userSelectors';
+
+const initFrom = (f, v, t) => {
+  switch (t) {
+    case 'login':
+      f.setFieldsValue({
+        olatravelLogin: {
+          emailOrNumberPhone: v.emailOrNumberPhone ?? '',
+          password: v.password ?? '',
+        },
+      });
+      break;
+    case 'register':
+      f.setFieldsValue({
+        olatravelRegister: {
+          emailOrNumberPhone: v.emailOrNumberPhone ?? '',
+          password: v.password ?? '',
+        },
+      });
+      break;
+    case 'forgotPassword':
+      f.setFieldsValue({
+        olatravelForgot: {
+          emailOrNumberPhone: v.emailOrNumberPhone ?? '',
+        },
+      });
+    break;
+    default:
+    break;
+  }
+};
+
 const FromLogin = props => {
   const [formLogin] = Form.useForm();
+  const dispatch = useDispatch();
   const FuncFacebookLogin = useCallback(() => <CustomButtonFacebook customClass="from-login__body-item-button" responseFacebook={handleResponseFacebook} textButton={'Đăng nhập với Facebook'} />, []);
   const FuncGoogleLogin = useCallback(() => <CustomButtonGoogle customClass="from-login__body-item-button" responseGoogle={handleResponseGoogle} textButton={'Đăng nhập với Google'} />, []);
 
-  const initFromLogin = value => {
-    formLogin.resetFields();
-  };
+  // const service_infoUser = useSelector(getInfoUser);
 
   const handleOnFinish = values => {
     console.log('Success:', values);
+    const { olatravelLogin } = values;
+    dispatch(loginAction({
+      type:'email',
+      data:{
+        email:olatravelLogin.emailOrNumberPhone,
+        password:olatravelLogin.password,
+      },
+      roles: 'user'
+    }));
     props.submitOk(true);
     formLogin.resetFields();
   };
@@ -26,18 +68,47 @@ const FromLogin = props => {
 
   const handleResponseFacebook = response => {
     console.log(response);
-    if (!response) {
-      return;
-    }
+    if (!response) return;
+    const { email, phone, name, userID, picture } = response;
+    props.submitOk(true);
+    dispatch(
+      loginAction({
+        type: 'facebook',
+        data: {
+          email: email,
+          phone: phone ?? '',
+          name: name,
+          idUser: userID,
+          AvatarUrl: picture?.data?.url,
+        },
+        roles: 'user',
+      })
+    );
   };
 
   const handleResponseGoogle = response => {
     console.log(response);
+    if (!response) return;
+    const { profileObj } = response;
+    props.submitOk(true);
+    dispatch(
+      loginAction({
+        type: 'google',
+        data: {
+          email: profileObj?.email,
+          phone: profileObj?.phone ?? '',
+          name: profileObj?.name,
+          idUser: profileObj?.googleId,
+          AvatarUrl: profileObj?.imageUrl,
+        },
+        roles: 'user',
+      })
+    );
   };
 
   const handleClick = e => {
     e.preventDefault();
-    let getDataEvent = e.target.getAttribute("data-event-type");
+    let getDataEvent = e.target.getAttribute('data-event-type');
     console.log(getDataEvent);
     props.activeFrom(getDataEvent);
   };
@@ -60,11 +131,11 @@ const FromLogin = props => {
               <span className="item-title-line"> Hoặc </span>
             </div>
           </div>
-          <Form name="olatravel-login" className="olatravel-login" initialValues={{ remember: true }} onFinish={handleOnFinish} onFinishFailed={handleOnFinishFailed} form={formLogin}>
-            <Form.Item name="userName" rules={[{ required: true, message: 'Vui lòng nhập email hoặc số điện thoại!' }]}>
+          <Form name="olatravelLogin" className="olatravel-login" initialValues={{ remember: true }} onFinish={handleOnFinish} onFinishFailed={handleOnFinishFailed} form={formLogin}>
+            <Form.Item name={['olatravelLogin', 'emailOrNumberPhone']} rules={[{ required: true, message: 'Vui lòng nhập email hoặc số điện thoại!' }]}>
               <Input placeholder="Email hoặc số điện thoại" />
             </Form.Item>
-            <Form.Item name="password" rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
+            <Form.Item name={['olatravelLogin', 'password']} rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
               <Input.Password placeholder="Mật khẩu" />
             </Form.Item>
             <Form.Item>
@@ -75,7 +146,9 @@ const FromLogin = props => {
           </Form>
           <div className="from-login__body--item">
             <div className="from-login__body-item-title">
-              <p onClick={handleClick} data-event-type="forgot-password">Khôi phục mật khẩu</p>
+              <p onClick={handleClick} data-event-type="forgot-password">
+                Khôi phục mật khẩu
+              </p>
             </div>
           </div>
           <div className="from-login__body--item">
@@ -123,7 +196,7 @@ const FromRegister = props => {
 
   const handleClick = e => {
     e.preventDefault();
-    let getDataEvent = e.target.getAttribute("data-event-type");
+    let getDataEvent = e.target.getAttribute('data-event-type');
     console.log(getDataEvent);
     props.activeFrom(getDataEvent);
   };
@@ -146,9 +219,12 @@ const FromRegister = props => {
               <span className="item-title-line"> Hoặc </span>
             </div>
           </div>
-          <Form name="olatravel-register" className="olatravel-register" initialValues={{ remember: true }} onFinish={handleOnFinish} onFinishFailed={handleOnFinishFailed} form={formRegister}>
-            <Form.Item name="emailOrNumberPhone" rules={[{ required: true, message: 'Vui lòng nhập email hoặc số điện thoại!' }]}>
+          <Form name="olatravelRegister" className="olatravel-register" initialValues={{ remember: true }} onFinish={handleOnFinish} onFinishFailed={handleOnFinishFailed} form={formRegister}>
+            <Form.Item name={['olatravelRegister', 'emailOrNumberPhone']} rules={[{ required: true, message: 'Vui lòng nhập email hoặc số điện thoại!' }]}>
               <Input placeholder="Email hoặc số điện thoại" />
+            </Form.Item>
+            <Form.Item name={['olatravelRegister', 'password']} rules={[{ required: true, message: 'Vui lòng nhập mật khẩu!' }]}>
+              <Input.Password placeholder="Mật khẩu" />
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" className="olatravel-register-button-submit">
@@ -159,7 +235,10 @@ const FromRegister = props => {
           <div className="from-register__body--item">
             <div className="from-register__body-item-title">
               <b>
-                Bạn đã có tài khoản? <span onClick={handleClick} data-event-type="login">Đăng nhập</span>
+                Bạn đã có tài khoản?{' '}
+                <span onClick={handleClick} data-event-type="login">
+                  Đăng nhập
+                </span>
               </b>
             </div>
           </div>
@@ -210,19 +289,15 @@ const FromForgotPassword = props => {
 
 const OlaModal = props => {
   const [selectFrom, setSelectFrom] = useState('');
-  const [changeFrom , setChangeFrom] = useState('');
+  const [changeFrom, setChangeFrom] = useState('');
 
   function checkFromOk(value) {
-    if (value) {
-      props.handleOk();
-      setSelectFrom();
-    }
-    return;
+    if (!value) return;
+    props.handleOk();
   }
 
-  const handleClickCancel =() => {
+  const handleClickCancel = () => {
     props.handleCancel();
-    setSelectFrom();
   };
 
   const handleSelectFrom = value => {
@@ -235,7 +310,7 @@ const OlaModal = props => {
       setSelectFrom(props?.selectModal);
     }
     return () => {
-      setSelectFrom();
+      setSelectFrom('');
     };
   }, [props?.selectModal]);
 
@@ -247,7 +322,7 @@ const OlaModal = props => {
         title={`${props.titleModal && props.titleModal}`}
         destroyOnClose={true}
         {...props}
-        wrapClassName={`override-modal-from-${selectFrom||''}`}
+        wrapClassName={`override-modal-from-${selectFrom || ''}`}
         visible={props.visible}
         onCancel={handleClickCancel}
         onOk={props.handleOk}
@@ -256,7 +331,7 @@ const OlaModal = props => {
         {/* <FromLogin /> */}
         {selectFrom === 'login' && <FromLogin submitOk={checkFromOk} activeFrom={handleSelectFrom} />}
         {/* <FromRegister /> */}
-        {selectFrom === 'register' && <FromRegister submitOk={checkFromOk} activeFrom={handleSelectFrom}/>}
+        {selectFrom === 'register' && <FromRegister submitOk={checkFromOk} activeFrom={handleSelectFrom} />}
         {/* <FromForgotPassword /> */}
         {selectFrom === 'forgot-password' && <FromForgotPassword submitOk={checkFromOk} />}
       </Modal>

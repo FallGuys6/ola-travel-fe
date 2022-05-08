@@ -8,7 +8,7 @@ const CustomButtonGoogle = ({onSuccess, responseGoogle, customClass, textButton}
         <GoogleLogin
             clientId="774238721475-6n8csb4d6iqncn7ip6tcuv79neipjb5u.apps.googleusercontent.com"
             cookiePolicy={'single_host_origin'}
-            isSignedIn={true}
+            // isSignedIn={true}
             {...props}
             onSuccess={responseGoogle}
             onFailure={responseGoogle}

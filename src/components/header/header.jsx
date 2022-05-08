@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { Layout, Avatar } from 'antd';
 import Icon, { UserOutlined } from '@ant-design/icons';
+
+import { logoutAction } from '@features/auth/authActions';
 import OlaModal from '@components/common/modal/modalFrom';
-import Logo from '@assets/images/logo-ola.jpg';
+import SubmenuUser from './submenuUser';
+
+
+
 import { ReactComponent as IconCart } from '@assets/images/icon-cart.svg';
 import { ReactComponent as IconBell } from '@assets/images/icon-bell.svg';
 import { ReactComponent as IconUser } from '@assets/images/icon-user.svg';
 import { ReactComponent as IconDown } from '@assets/images/icon-down.svg';
 import { ReactComponent as IconRight } from '@assets/images/icon-right.svg';
-import SubmenuUser from './submenuUser';
 import AvatarUser from '@assets/images/avatar.jpg';
+import Logo from '@assets/images/logo-ola.jpg';
 
 const PopupLogin = props => {
   function handleSelectModalLogin() {
@@ -40,7 +47,10 @@ const PopupLogin = props => {
   );
 };
 
-const HeaderComponent = ({ infoUser, infoBusiness }) => {
+const HeaderComponent = ({ isLogged, infoBusiness }) => {
+
+  const dispatch = useDispatch();
+
   const [notification, setNotification] = useState(0);
   const [showPopup, setShowPopup] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -48,6 +58,14 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
   const [showInformation, setShowInformation] = useState(false);
   const [iconRotate, setIconRotate] = useState(false);
   const [user, setUser] = useState('Tú');
+  const [dataUser, setDataUser] = useState({});
+
+
+  useEffect(() => {
+    if (typeof isLogged !== 'undefined') {
+      setDataUser(isLogged);
+    }
+  }, [isLogged]);
 
   function handleClickUser() {
     setShowPopup(!showPopup);
@@ -72,9 +90,16 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
     setIconRotate(!iconRotate);
   }
 
+  function handleLogout(e) {
+    if(!e) return
+    console.log(e);
+    dispatch(logoutAction({refresh:true}));
+  }
+
   return (
     <React.Fragment>
-      <OlaModal
+      {
+        !dataUser?.idUser && (<OlaModal
         titleModal={dataModal?.title}
         selectModal={dataModal?.key}
         visible={showModal}
@@ -85,7 +110,8 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
         width={dataModal?.widthModal}
         centered={true}
         maskStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
-      />
+      />)
+      }
       <Layout.Header className="container__full--header">
         <div className="container-1200">
           <div className="container-1200__header">
@@ -96,7 +122,7 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
               <div className="navigate__item--menu">
                 <ul>
                   <li>
-                    <a href=".">
+                    <a href="">
                       <span>Trang chủ</span>
                     </a>
                   </li>
@@ -134,33 +160,41 @@ const HeaderComponent = ({ infoUser, infoBusiness }) => {
                       <Icon component={IconBell} className="icon--menu"/>
                     </p>
                   </li>
-                  {/* <li onClick={handleClickUser}>
+                  {
+                    !dataUser?.idUser && (<li onClick={handleClickUser}>
                     <p>
                       <Icon component={IconUser} className="icon--menu"/>
                       <Icon component={IconDown} className="icon--menu"/>
                     </p>
-                  </li> */}
-                  <li onClick={handleClickAvatar}>
+                  </li>)
+                  }
+                  {
+                    dataUser?.idUser && (<li onClick={handleClickAvatar}>
                     <p>
-                      <Avatar size={20} src={AvatarUser} icon={<UserOutlined />} />
+                      <Avatar size={20} src={dataUser.avatarUrl} icon={<UserOutlined />} />
                       <span className="nameUser">{user}</span>
                       <Icon
                         component={IconDown}
                         className={`icon--menu ${iconRotate ? 'iconRotate--90' : 'iconRotate-0'}`}
                       />
                     </p>
-                  </li>
+                  </li>)
+                  }
                 </ul>
-                <PopupLogin activeModal={handleActiveModal} />
-                <div className={`submenu-user ${showInformation ? 'showInformation' : ''}`}>
-                  <SubmenuUser />
-                </div>
+                {
+                  !dataUser?.idUser && (<PopupLogin activeModal={handleActiveModal} />)
+                }
+                {
+                  dataUser?.idUser && (<div className={`submenu-user ${showInformation ? 'showInformation' : ''}`}>
+                  <SubmenuUser logout={handleLogout} isLogged={dataUser}/>
+                </div>)
+                }
               </div>
             </div>
           </div>
         </div>
       </Layout.Header>
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 

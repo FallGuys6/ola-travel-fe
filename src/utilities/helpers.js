@@ -20,6 +20,11 @@ export const setLocalStorage = (itemName, data) => {
   return localStorage.setItem(itemName, data);
 };
 
+export const getLocalStorage = itemName => {
+  if (!itemName) return;
+  return localStorage.getItem(itemName);
+}
+
 export const removeLocalStorage = itemName => {
   if (!itemName) return;
   return localStorage.removeItem(itemName);
