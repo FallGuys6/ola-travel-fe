@@ -3,18 +3,31 @@
     background: none !important;
     height: auto !important;
     position: absolute !important;
-    z-index: 100;
+    z-index: 999;
     width: 100% !important;
     top: 5%;
     transform: translateY(-5%);
-    @include animate-css(fadeIn);
+    &.shrink {
+        position: fixed !important;
+        background-color: $background-white !important;
+        width: 58.5% !important;
+        border-radius: 0px 0px 25px 25px;
+        margin: 0 !important;
+        padding: 0 !important;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        @include animate-css(fadeIn);
+    }
     .container-1200__header {
         width: 100% !important;
         height: calc(97px - 6px * 2) !important;
         background: $background-white;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 20px;
+        // box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         padding: 6px 25px;
+        border-radius: 20px;
+
         .header__navigate {
             width: 100%;
             height: 100%;
@@ -51,11 +64,11 @@
                         justify-content: center;
                         width: max-content;
                         padding: 5px 10px;
-                        &:hover>a>span {
+                        &:hover > a > span {
                             cursor: pointer;
                             color: $color-blue !important;
                         }
-                        &:hover>a>svg.icon--menu path {
+                        &:hover > a > svg.icon--menu path {
                             cursor: pointer;
                             stroke: $color-blue !important;
                         }
@@ -124,30 +137,29 @@
                                     color: $color-white;
                                 }
                             }
-                            .icon--menu{
+                            .icon--menu {
                                 background: none;
-                                &>svg {
+                                & > svg {
                                     width: 24px;
-                                    fill:none;
+                                    fill: none;
                                     height: 24px;
-                                    path{
+                                    path {
                                         stroke: #181818 !important;
                                     }
                                 }
-
                             }
                         }
-                        &:hover>p {
+                        &:hover > p {
                             cursor: pointer;
                             color: $color-blue !important;
                         }
-                        &:hover>p>.icon--menu>svg> path {
+                        &:hover > p > .icon--menu > svg > path {
                             cursor: pointer;
                             stroke: $color-blue !important;
                         }
                     }
                 }
-                &.showPopup>.popup--login {
+                &.showPopup > .popup--login {
                     visibility: visible;
                     @include animate-css(fadeIn);
                 }
@@ -218,7 +230,7 @@
     }
 }
 
-li>p>.nameUser {
+li > p > .nameUser {
     font-weight: bold;
     font-size: 14px;
     padding: 0 5px;
